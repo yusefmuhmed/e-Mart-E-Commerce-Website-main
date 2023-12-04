@@ -1,0 +1,32 @@
+
+
+
+
+.katext{
+    color: #0aad0a;
+}
+.ratingb{
+    /* background-color:#0aad0a ; */
+    color: gold;
+    width: fit-content;
+    border-radius: 25px;
+}
+.ratingp{
+    font-size: 14px;
+}
+.iconmarket{
+    width:40px;
+    height:40px;
+    background-color: whitesmoke;
+    padding:5px;
+    border-radius: 50%;
+    margin:5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(145,158,171,.2) 0px 5px 5px -1px,rgba(145,158,171,.14) 0px 4px 5px 0px,rgba(145,158,171,.12) 0px 4px 10px 0px;
+    transition:0.2s;
+}
+.iconmarket:hover{
+    border:3px solid #0aad0a;
+}
