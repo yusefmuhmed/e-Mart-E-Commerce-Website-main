@@ -37,8 +37,7 @@ export default async function Home() {
 
   return (
     <>
-
-      <Navbar app={app} dark />
+       <Navbar app={app} dark />
 
       <HomeBanner home={home} />
 

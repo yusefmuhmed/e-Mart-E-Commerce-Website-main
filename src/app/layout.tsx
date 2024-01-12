@@ -1,37 +1,61 @@
-import React, { ReactNode } from 'react'
-import { NextIntlClientProvider } from 'next-intl/client';
-import { redirect } from 'next/navigation';
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
+    
+    
+import '../../public/styles/bootstrap.min.css'
+import '../../public/styles/animate.min.css'
+import '../../public/styles/remixicon.css'
+import '../../public/styles/styles.css'
+import '../../public/styles/responsive.css'
+import '../../public/styles/rtl.css'
 
-const locales: { [key: string]: string } = { en: "English", ar: "Arabic" }
 
-export function generateStaticParams() {
-  return [{ locale: 'en' }, { locale: 'ar' }];
-}
+import "keen-slider/keen-slider.min.css"
 
-export default function RootLayout({ params: { locale }, children, }: { params: { locale: string }, children: ReactNode }) {
+ 
+ 
+import "./globals.css";
+ import "/node_modules/mdb-react-ui-kit/dist/css/mdb.min.css";
+import "/node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+import Script from "next/script";
+import RootLayoutHeader from "../components/RootLayoutHeader";
+import Footer from "../components/Footer";
+import AuthProvider from "../components/AuthProvider";
+import AllContext from "../contexts/AllContext";
 
-  // only defined locales
-  if (!locales[locale]) {
-    redirect("/error/404")
-  }
+const inter = Inter({ subsets: ["latin"] });
 
+export const metadata = {
+  title: "hardsteleco | B2bB",
+  description: "Online shopping platform",
+};
+
+export default function RootLayout({ children }) {
   return (
-    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body>
-        <NextIntlClientProvider locale={locale}>
-          {children}
-        </NextIntlClientProvider>
+    <html lang="en">
+      <body
+        className={inter.className}
+        suppressHydrationWarning={true}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
+        <AuthProvider>
+           <AllContext>
+            {children}
+            {/* <Footer /> */}
+          </AllContext>
+        </AuthProvider>
+        <Script
+          defer
+          type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js"
+        ></Script>
       </body>
     </html>
-  )
-};
+  );
+}
+

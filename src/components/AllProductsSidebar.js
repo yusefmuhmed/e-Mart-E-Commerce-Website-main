@@ -73,7 +73,7 @@ export default function AllProductsSidebar() {
                 aria-expanded="true"
                 aria-controls="panelsStayOpen-collapseOne"
               >
-                Categories
+                Material
               </button>
             </h2>
             <div
@@ -107,7 +107,7 @@ export default function AllProductsSidebar() {
                               cursor: "pointer",
                             }}
                           >
-                            {ct[0].toUpperCase() + ct.slice(1)}
+                            {/* {ct[0].toUpperCase() + ct.slice(1)} */}
                           </a>
                         </li>
                       );
@@ -116,6 +116,116 @@ export default function AllProductsSidebar() {
               </div>
             </div>
           </div>
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="headingTwo">
+              <button
+                className="accordion-button text-dark bg-light"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#panelsStayOpen-collapseTwo"
+                aria-expanded="false"
+                aria-controls="panelsStayOpen-collapseTwo"
+              >
+                categories
+              </button>
+            </h2>
+            <div
+              id="panelsStayOpen-collapseTwo"
+              className="accordion-collapse collapse show"
+              aria-labelledby="headingTwo"
+            >
+              <div className="accordion-body">
+                <div>
+                  {/* Checked checkbox */}
+                  {productsLoading && (
+                    <Skeleton.SkeletonThemeProvider>
+                      <Skeleton
+                        style={
+                          {
+                            // height: "auto",
+                          }
+                        }
+                      />
+                    </Skeleton.SkeletonThemeProvider>
+                  )}
+                  {!productsLoading &&
+                    category !== "all" &&
+                    Array.from(
+                      new Set(
+                        products
+                          .filter((p) => p.category === category)
+                          .map((p) => p.brand)
+                      )
+                    ).map((brand, index) => {
+                      return (
+                        <div
+                          className="form-check d-flex flex-col align-items-center justify-content-between"
+                          key={index}
+                        >
+                          <div>
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              id={brand}
+                              defaultChecked=""
+                              onChange={handleCheck}
+                              value={brand}
+                            />
+                            <label className="form-check-label" htmlFor={brand}>
+                              {brand}
+                            </label>
+                          </div>
+                          <span className="badge badge-secondary float-end">
+                            {
+                              Array.from(
+                                new Set(
+                                  products.filter(
+                                    (p) =>
+                                      p.brand === brand &&
+                                      p.category === category
+                                  )
+                                )
+                              ).length
+                            }
+                          </span>
+                        </div>
+                      );
+                    })}
+                  {category === "all" &&
+                    brands.map((brand, index) => {
+                      return (
+                        <div
+                          className="form-check d-flex flex-col align-items-center justify-content-between"
+                          key={index}
+                        >
+                          <div>
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              id={brand.brand}
+                              defaultChecked=""
+                              onChange={handleCheck}
+                              value={brand.brand}
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor={brand.brand}
+                            >
+                              {brand.brand}
+                            </label>
+                          </div>
+                          <span className="badge badge-secondary float-end">
+                            {brand?._count}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  {/* Checked checkbox */}
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingTwo">
               <button
@@ -225,6 +335,116 @@ export default function AllProductsSidebar() {
               </div>
             </div>
           </div>
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="headingTwo">
+              <button
+                className="accordion-button text-dark bg-light"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#panelsStayOpen-collapseTwo"
+                aria-expanded="false"
+                aria-controls="panelsStayOpen-collapseTwo"
+              >
+                size
+              </button>
+            </h2>
+            <div
+              id="panelsStayOpen-collapseTwo"
+              className="accordion-collapse collapse show"
+              aria-labelledby="headingTwo"
+            >
+              <div className="accordion-body">
+                <div>
+                  {/* Checked checkbox */}
+                  {productsLoading && (
+                    <Skeleton.SkeletonThemeProvider>
+                      <Skeleton
+                        style={
+                          {
+                            // height: "auto",
+                          }
+                        }
+                      />
+                    </Skeleton.SkeletonThemeProvider>
+                  )}
+                  {!productsLoading &&
+                    category !== "all" &&
+                    Array.from(
+                      new Set(
+                        products
+                          .filter((p) => p.category === category)
+                          .map((p) => p.brand)
+                      )
+                    ).map((brand, index) => {
+                      return (
+                        <div
+                          className="form-check d-flex flex-col align-items-center justify-content-between"
+                          key={index}
+                        >
+                          <div>
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              id={brand}
+                              defaultChecked=""
+                              onChange={handleCheck}
+                              value={brand}
+                            />
+                            <label className="form-check-label" htmlFor={brand}>
+                              {brand}
+                            </label>
+                          </div>
+                          <span className="badge badge-secondary float-end">
+                            {
+                              Array.from(
+                                new Set(
+                                  products.filter(
+                                    (p) =>
+                                      p.brand === brand &&
+                                      p.category === category
+                                  )
+                                )
+                              ).length
+                            }
+                          </span>
+                        </div>
+                      );
+                    })}
+                  {category === "all" &&
+                    brands.map((brand, index) => {
+                      return (
+                        <div
+                          className="form-check d-flex flex-col align-items-center justify-content-between"
+                          key={index}
+                        >
+                          <div>
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              id={brand.brand}
+                              defaultChecked=""
+                              onChange={handleCheck}
+                              value={brand.brand}
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor={brand.brand}
+                            >
+                              {brand.brand}
+                            </label>
+                          </div>
+                          <span className="badge badge-secondary float-end">
+                            {brand?._count}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  {/* Checked checkbox */}
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* <div className="accordion-item">
             <h2 className="accordion-header" id="headingThree">
               <button

@@ -1847,108 +1847,54 @@ export async function GET(request) {
     "productsCount": 94,
     "categories": [
       {
-        "category": "automotive"
+        "category": "category1"
       },
       {
-        "category": "fragrances"
+        "category": "category2"
       },
       {
-        "category": "furniture"
+        "category": "category3"
       },
       {
-        "category": "groceries"
+        "category": "category4"
       },
       {
-        "category": "home-decoration"
+        "category": "category5"
       },
       {
-        "category": "laptops"
+        "category": "category6"
       },
       {
-        "category": "lighting"
+        "category": "category7"
       },
       {
-        "category": "mens-shirts"
+        "category": "category8"
       },
-      {
-        "category": "mens-shoes"
-      },
-      {
-        "category": "mens-watches"
-      },
-      {
-        "category": "motorcycle"
-      },
-      {
-        "category": "skincare"
-      },
-      {
-        "category": "smartphones"
-      },
-      {
-        "category": "sunglasses"
-      },
-      {
-        "category": "tops"
-      },
-      {
-        "category": "womens-bags"
-      },
-      {
-        "category": "womens-dresses"
-      },
-      {
-        "category": "womens-jewellery"
-      },
-      {
-        "category": "womens-shoes"
-      },
-      {
-        "category": "womens-watches"
-      }
+     
     ],
     "categoriesCount": 20,
     "brands": [
       {
         "_count": 1,
-        "brand": "Al Munakh"
+        "brand": "brand1"
       },
       {
         "_count": 1,
-        "brand": "AmnaMart"
+        "brand": "brand1"
       },
       {
         "_count": 3,
-        "brand": "Apple"
+        "brand": "brand1"
       },
       {
         "_count": 1,
-        "brand": "Arrivals Genuine"
+        "brand": "brand1"
       },
       {
-        "_count": 1,
-        "brand": "BRAVE BULL"
+        "_count": 7,
+        "brand": "brand1"
       },
-      {
-        "_count": 1,
-        "brand": "Bake Parlor Big"
-      },
-      {
-        "_count": 1,
-        "brand": "Baking Food Items"
-      },
-      {
-        "_count": 1,
-        "brand": "Boho Decor"
-      },
-      {
-        "_count": 2,
-        "brand": "Bracelet"
-      },
-      {
-        "_count": 1,
-        "brand": "Car Aux"
-      },
+      
       {
         "_count": 2,
         "brand": "Copenhagen Luxe"
@@ -2021,186 +1967,7 @@ export async function GET(request) {
         "_count": 1,
         "brand": "Hemani Tea"
       },
-      {
-        "_count": 1,
-        "brand": "Huawei"
-      },
-      {
-        "_count": 1,
-        "brand": "IELGY"
-      },
-      {
-        "_count": 1,
-        "brand": "IELGY fashion"
-      },
-      {
-        "_count": 2,
-        "brand": "Ifei Home"
-      },
-      {
-        "_count": 1,
-        "brand": "Impression of Acqua Di Gio"
-      },
-      {
-        "_count": 1,
-        "brand": "Infinix"
-      },
-      {
-        "_count": 1,
-        "brand": "JIEPOLLY"
-      },
-      {
-        "_count": 1,
-        "brand": "L'Oreal Paris"
-      },
-      {
-        "_count": 1,
-        "brand": "LED Lights"
-      },
-      {
-        "_count": 1,
-        "brand": "Lord - Al-Rehab"
-      },
-      {
-        "_count": 3,
-        "brand": "LouisWill"
-      },
-      {
-        "_count": 1,
-        "brand": "Luxury Digital"
-      },
-      {
-        "_count": 1,
-        "brand": "METRO 70cc Motorcycle - MR70"
-      },
-      {
-        "_count": 1,
-        "brand": "Maasai Sandals"
-      },
-      {
-        "_count": 1,
-        "brand": "Microsoft Surface"
-      },
-      {
-        "_count": 1,
-        "brand": "Naviforce"
-      },
-      {
-        "_count": 1,
-        "brand": "Neon LED Light"
-      },
-      {
-        "_count": 1,
-        "brand": "OPPO"
-      },
-      {
-        "_count": 1,
-        "brand": "Professional Wear"
-      },
-      {
-        "_count": 1,
-        "brand": "RED MICKY MOUSE.."
-      },
-      {
-        "_count": 1,
-        "brand": "ROREC White Rice"
-      },
-      {
-        "_count": 1,
-        "brand": "Ratttan Outdoor"
-      },
-      {
-        "_count": 1,
-        "brand": "Rubber"
-      },
-      {
-        "_count": 2,
-        "brand": "SKMEI 9117"
-      },
-      {
-        "_count": 1,
-        "brand": "Saaf & Khaas"
-      },
-      {
-        "_count": 2,
-        "brand": "Samsung"
-      },
-      {
-        "_count": 1,
-        "brand": "Sandals Flip Flops"
-      },
-      {
-        "_count": 3,
-        "brand": "Sneakers"
-      },
-      {
-        "_count": 2,
-        "brand": "Soft Cotton"
-      },
-      {
-        "_count": 1,
-        "brand": "Stainless"
-      },
-      {
-        "_count": 1,
-        "brand": "Steal Frame"
-      },
-      {
-        "_count": 1,
-        "brand": "Strap Skeleton"
-      },
-      {
-        "_count": 1,
-        "brand": "Synthetic Leather"
-      },
-      {
-        "_count": 2,
-        "brand": "TC Reusable"
-      },
-      {
-        "_count": 2,
-        "brand": "The Warehouse"
-      },
-      {
-        "_count": 2,
-        "brand": "Top Sweater"
-      },
-      {
-        "_count": 2,
-        "brand": "Vintage Apparel"
-      },
-      {
-        "_count": 1,
-        "brand": "W1209 DC12V"
-      },
-      {
-        "_count": 1,
-        "brand": "Watch Pearls"
-      },
-      {
-        "_count": 1,
-        "brand": "Xiangle"
-      },
-      {
-        "_count": 1,
-        "brand": "fauji"
-      },
-      {
-        "_count": 1,
-        "brand": "lightingbrilliance"
-      },
-      {
-        "_count": 1,
-        "brand": "luxury palace"
-      },
-      {
-        "_count": 2,
-        "brand": "mastar watch"
-      },
-      {
-        "_count": 1,
-        "brand": "shock absorber"
-      }
+       
     ],
     "brandsCount": 73
   });

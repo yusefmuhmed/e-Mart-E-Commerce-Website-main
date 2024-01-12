@@ -39,7 +39,7 @@ export default function RootLayoutHeader() {
             {/* Left elements */}
             <div className="col-lg-2 col-sm-4 col-4">
               <Link href="/" className="float-start">
-                <p className="fs-2 fw-bold">eMart</p>
+                <p className="fs-2 fw-bold">hardsteleco</p>
               </Link>
             </div>
             {/* Left elements */}

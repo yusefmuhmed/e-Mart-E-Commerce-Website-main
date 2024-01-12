@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function Navbar({ app, dark }: Props) {
-    const locale = useLocale();
+    const locale ="en" //useLocale();
     const pathname = usePathname();
     const [menu, setMenu] = React.useState(true)
 
@@ -98,11 +98,11 @@ export default function Navbar({ app, dark }: Props) {
                                         </Link>
                                     </li>
 
-                                    <li className="nav-item">
+                                    {/* <li className="nav-item">
                                         <Link toLocale={locale === "ar" ? "en" : "ar"} href={pathname.replace('/' + locale + '/', '/')} activeClassName="active">
                                             <a onClick={toggleNavbar} className="nav-link">{locale === "en" ? "عربي" : "EN"}</a>
                                         </Link>
-                                    </li>
+                                    </li> */}
                                 </ul>
                             </div>
                         </nav>

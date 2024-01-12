@@ -18,28 +18,29 @@ export default function SingleProduct({ product }) {
     addToCart(product.id_);
     router.push("/cart");
   };
+  product=product[0]
   if (gridView) {
     return (
       <div className="col-lg-4 col-md-6 col-sm-6 d-flex">
         <div className="card w-100 my-2 shadow-2-strong">
-          <Link href={`/products/${product.id_}`}>
+          <Link href={`/products/${product.id}`}>
             <Image
-              src={product.thumbnail}
+              src={product.product_img[0].formats.thumbnail.url}
               width={200}
               height={200}
-              alt={`${product.title} image`}
+              alt={`${product.name} image`}
               className="card-img-top"
             />
           </Link>
-          {/* <img src={product.thumbnail} className="card-img-top" /> */}
+          {/* <img src={product.product_img[0].formats.thumbnail} className="card-img-top" /> */}
           <div className="card-body d-flex flex-column">
-            <h5 className="card-title fw-semibold">{product.title}</h5>
+            <h5 className="card-title fw-semibold">{product.name}</h5>
             <div className="d-flex flex-row">
               <h5 className="mb-1 me-1">
                 $
                 {(
                   product.price -
-                  product.price * (product.discountPercentage / 100)
+                  product.price * (product.dicount / 100)
                 ).toFixed(2)}
               </h5>
               <span className="text-danger">
@@ -48,7 +49,7 @@ export default function SingleProduct({ product }) {
             </div>
             {
               <p className="card-text">
-                {product.description.slice(0, 40) + " ..."}
+                {product.about.slice(0, 40) + " ..."}
               </p>
             }
             <div className="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
@@ -74,13 +75,13 @@ export default function SingleProduct({ product }) {
                 <div className="col-xl-3 col-md-4 d-flex justify-content-center">
                   <div className="bg-image hover-zoom ripple rounded ripple-surface me-md-3 mb-3 mb-md-0">
                     <Image
-                      src={product.thumbnail}
+                      src={product.product_img[0].thumbnail.url}
                       width={200}
                       height={200}
-                      alt={product.title}
+                      alt={product.name}
                       className="h-full w-full"
                     />
-                    <Link href={`/products/${product.id_}`}>
+                    <Link href={`/products/${product.id}`}>
                       <div className="hover-overlay">
                         <div
                           className="mask"
@@ -93,7 +94,7 @@ export default function SingleProduct({ product }) {
                   </div>
                 </div>
                 <div className="col-xl-6 col-md-5 col-sm-7">
-                  <h5>{product.title}</h5>
+                  <h5>{product.name}</h5>
                   <div className="d-flex flex-row">
                     <div className="text-warning mb-1 me-2">
                       {[...Array(Math.floor(product.rating.toFixed(1)))].map(
@@ -112,7 +113,7 @@ export default function SingleProduct({ product }) {
                     </div>
                     {/* <span className="text-muted">154 orders</span> */}
                   </div>
-                  <p className="text mb-4 mb-md-0">{product.description}</p>
+                  <p className="text mb-4 mb-md-0">{product.about}</p>
                 </div>
                 <div className="col-xl-3 col-md-3 col-sm-5">
                   <div className="d-flex flex-row align-items-center mb-1">
@@ -120,7 +121,7 @@ export default function SingleProduct({ product }) {
                       $
                       {(
                         product.price -
-                        product.price * (product.discountPercentage / 100)
+                        product.price * (product.dicount / 100)
                       ).toFixed(2)}
                     </h4>
                     <span className="text-danger">

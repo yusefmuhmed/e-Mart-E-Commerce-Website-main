@@ -35,15 +35,15 @@ export default function RecentlyViewedProducts() {
                 return (
                   <div className="col-lg-2 col-md-4 col-4" key={product.id}>
                     <Link
-                      href={`/products/${product.id_}`}
+                      href={`/products/${product.id}`}
                       className="img-wrap"
                     >
                       <Image
-                        alt={product.title}
+                        alt={product.name}
                         height={200}
                         width={200}
                         className="img-thumbnail"
-                        src={product.thumbnail}
+                        src={product.product_img[0].formats.thumbnail}
                         style={{
                           height: "150px",
                           width: "200px",

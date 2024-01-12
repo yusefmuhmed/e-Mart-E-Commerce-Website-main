@@ -12,7 +12,7 @@ interface Props extends ComponentProps<typeof NextLink> {
 
 function Link({ href, ...rest }: Props, ref: Props['ref']) {
     href = href || '';
-    const locale = useLocale();
+    const locale = "en"//useLocale();
     const pathname = usePathname();
     const { toLocale, activeClassName } = rest;
 

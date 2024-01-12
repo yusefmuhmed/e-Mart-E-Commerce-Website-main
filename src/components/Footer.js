@@ -13,7 +13,7 @@ export default function Footer() {
               {/* Grid column */}
               <div className="col-12 col-lg-3 col-sm-12 mb-2">
                 {/* Content */}
-                <p className="text-white h2">eMart</p>
+                <p className="text-white h2">hardsteleco</p>
                 <p className="mt-1 text-white">
                   © 2023 Copyright:{" "}
                   <Link href="mushfiqxrabbi@gmail.com" className="text-white">

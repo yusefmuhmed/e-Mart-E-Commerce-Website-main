@@ -36,7 +36,7 @@ export async function POST(request) {
   //       ),
   //       product_data: {
   //         name: p.product.title,
-  //         images: [p.product.thumbnail],
+  //         images: [p.product.product_img[0].formats.thumbnail],
   //         description: p.product.description,
   //       },
   //     },

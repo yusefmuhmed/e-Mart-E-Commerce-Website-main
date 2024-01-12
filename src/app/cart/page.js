@@ -238,10 +238,10 @@ export default function Cart() {
                             </a>
                           </div>
                         </div>
-                        <Link href={`/products/${product.id_}`} className="">
+                        <Link href={`/products/${product.id}`} className="">
                           <Image
-                            src={product.thumbnail}
-                            alt={product.title}
+                            src={product.product_img[0].formats.thumbnail}
+                            alt={product.name}
                             width={250}
                             height={200}
                             className="card-img-top rounded-2"
@@ -255,7 +255,7 @@ export default function Cart() {
                         </Link>
                         <div className="card-body d-flex flex-column pt-3 border-top">
                           <a className="nav-link" disabled>
-                            {product.category}
+                            {product.categorie.categorie}
                           </a>
                           <div className="price-wrap mb-2">
                             <strong className="">${product.price}</strong>

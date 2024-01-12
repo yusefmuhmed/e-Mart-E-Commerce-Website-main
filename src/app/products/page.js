@@ -18,7 +18,7 @@ export default function Products() {
     category,
     productsVisible,
   } = useProducts();
-  const { cartLoading, cart } = useCart();
+  // const { cartLoading, cart } = useCart();
   // console.log(loading);
   // if (productsLoading || cartLoading) {
   //   return <p>loading</p>;

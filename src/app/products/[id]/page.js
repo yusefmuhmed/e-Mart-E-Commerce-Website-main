@@ -140,7 +140,7 @@ export default function Product({ params }) {
                         fontWeight: "bold",
                       }}
                     >
-                      {product.title}
+                      {product.name}
                     </h4>
                     <div className="d-flex flex-row my-3">
                       <div className="text-warning mb-1 me-2">
@@ -164,19 +164,19 @@ export default function Product({ params }) {
                         $
                         {(
                           product?.price -
-                          product?.price * (product?.discountPercentage / 100)
+                          product?.price * (product?.discount / 100)
                         ).toFixed(2)}
                       </span>
                       <span className="text-muted">/per box</span>
                     </div>
-                    <p>{product?.description}</p>
+                    <p>{product?.about}</p>
                     <div className="row">
                       <dt className="col-3">Category:</dt>
-                      <dd className="col-9">{product?.category}</dd>
+                      <dd className="col-9">{product?.categorie.categorie}</dd>
                       <dt className="col-3">Brand</dt>
-                      <dd className="col-9">{product?.brand}</dd>
+                      <dd className="col-9">{product?.brand.name}</dd>
                       <dt className="col-3">Model</dt>
-                      <dd className="col-9">{product?.title}</dd>
+                      <dd className="col-9">{product?.name}</dd>
                     </div>
                     <hr />
                     <div className="row mb-4">
@@ -215,6 +215,34 @@ export default function Product({ params }) {
                           </button>
                         </div>
                       </div>
+                      <div className="col-md-4 col-6 mb-3">
+                        <label className="mb-2 d-block">size</label>
+                        <div
+                          className="input-group mb-3"
+                          style={{ width: 170 }}
+                        >
+                          <select class="form-select" aria-label="Default select example">
+                            <option selected>Open this select menu</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div className="col-md-4 col-6 mb-3">
+                        <label className="mb-2 d-block">length</label>
+                        <div
+                          className="input-group mb-3"
+                          style={{ width: 170 }}
+                        >
+                          <select class="form-select" aria-label="Default select example">
+                            <option selected>Open this select menu</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </select>
+                        </div>
+                      </div>
                     </div>
                     <div className="d-flex gap-2">
                       <button
@@ -222,7 +250,7 @@ export default function Product({ params }) {
                         onClick={handleBuy}
                       >
                         {" "}
-                        Buy now{" "}
+                        get a quote{" "}
                       </button>
                       <button
                         className="btn btn-primary shadow-0"
@@ -279,35 +307,11 @@ export default function Product({ params }) {
                           aria-controls="ex1-pills-2"
                           aria-selected="false"
                         >
-                          Warranty info
+                          description
                         </a>
                       </li>
-                      <li className="nav-item d-flex" role="presentation">
-                        <a
-                          className="nav-link d-flex align-items-center justify-content-center w-100"
-                          id="ex1-tab-3"
-                          data-mdb-toggle="pill"
-                          href="#ex1-pills-3"
-                          role="tab"
-                          aria-controls="ex1-pills-3"
-                          aria-selected="false"
-                        >
-                          Shipping info
-                        </a>
-                      </li>
-                      <li className="nav-item d-flex" role="presentation">
-                        <a
-                          className="nav-link d-flex align-items-center justify-content-center w-100"
-                          id="ex1-tab-4"
-                          data-mdb-toggle="pill"
-                          href="#ex1-pills-4"
-                          role="tab"
-                          aria-controls="ex1-pills-4"
-                          aria-selected="false"
-                        >
-                          Seller profile
-                        </a>
-                      </li>
+
+
                     </ul>
                     {/* Pills navs */}
                     {/* Pills content */}
@@ -460,17 +464,18 @@ export default function Product({ params }) {
                   <div className="px-0 border rounded-2 shadow-0">
                     <div className="card">
                       <div className="card-body">
-                        <h5 className="card-title">Similar items</h5>
+                        <h5 className="card-title">RELATED PRODUCTS
+                        </h5>
                         {similarProducts.map((product, index) => {
                           return (
                             <div key={index} className="d-flex mb-3">
                               <Link
-                                href={`/products/${product.id_}`}
+                                href={`/products/${product.id}`}
                                 className="me-3"
                               >
                                 <Image
-                                  src={`${product.thumbnail}`}
-                                  alt={product.title + " image"}
+                                  src={`${product.product_img[0].formats.thumbnail}`}
+                                  alt={product.name + " image"}
                                   height={96}
                                   width={96}
                                   style={{ minWidth: 96, height: 96 }}
@@ -479,18 +484,18 @@ export default function Product({ params }) {
                               </Link>
                               <div className="info">
                                 <Link
-                                  href={`/products/${product.id_}`}
+                                  href={`/products/${product.id}`}
                                   className="nav-link mb-1"
                                 >
-                                  {product.title} <br />
-                                  {product.brand}
+                                  {product.name} <br />
+                                  {product.brand.name}
                                 </Link>
                                 <strong className="text-dark">
                                   $
                                   {(
                                     product.price -
                                     product.price *
-                                      (product.discountPercentage / 100)
+                                    (product.discount/ 100)
                                   ).toFixed(2)}
                                 </strong>
                               </div>

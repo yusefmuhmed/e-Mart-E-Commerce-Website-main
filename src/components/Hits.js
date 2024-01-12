@@ -41,7 +41,7 @@ export default function Hits({ setSearch }) {
           >
             <Image
               src={product?.thumbnail}
-              alt={product?.title}
+              alt={product?.name}
               width={70}
               height={80}
               className="col-4"
@@ -55,7 +55,7 @@ export default function Hits({ setSearch }) {
                   fontWeight: "bolder",
                 }}
               >
-                {product.title}
+                {product.name}
               </h4>
               <h3
                 style={{
@@ -64,7 +64,7 @@ export default function Hits({ setSearch }) {
                   fontWeight: "bold",
                 }}
               >
-                {product.brand}
+                {product.brand.name}
               </h3>
               <p
                 style={{
@@ -72,7 +72,7 @@ export default function Hits({ setSearch }) {
                   textAlign: "left",
                 }}
               >
-                {product.description.slice(0, 80) + "..."}
+                {/* {product.description.slice(0, 80) + "..."} */}
               </p>
             </div>
           </div>
