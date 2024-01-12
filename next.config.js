@@ -1,3 +1,6 @@
+const {
+  hostname
+} = require('os');
 const path = require('path')
 /** @type {import('next').NextConfig} */
 const withNextIntl = require('next-intl/plugin')(
@@ -17,8 +20,7 @@ module.exports = withNextIntl({
     includePaths: [path.join(__dirname, 'styles')],
   },
   images: {
-    remotePatterns: [
-      {
+    remotePatterns: [{
         protocol: 'https',
         hostname: 'res.cloudinary.com',
         pathname: '/djrskkszi/**',
@@ -33,9 +35,11 @@ module.exports = withNextIntl({
         hostname: "mdbootstrap.com",
         port: "",
         pathname: "/img/logo/mdb-transaprent-noshadows.png",
+      },
+      {
+        hostname: 'nayemdevs.com'
       }
     ],
   },
   trailingSlash: true,
 });
-
