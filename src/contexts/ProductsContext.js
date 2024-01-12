@@ -52,15 +52,15 @@ export default function ProductsProvider({ children }) {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch("http://localhost:1337/api/products?populate=*", {
+      const res = await fetch("http://141.136.44.242:1337/api/products?populate=*", {
         headers: { Authorization: "Bearer 27fe20a350b4e2b68a19de4e4ccbe100805600ccb7cdc1c79e7801c4f146b9c3a2a6e55d9426f9ad4324e4d4f561aca2e746b7118b62d86e3076410caa0e6a841bdbabc622aaf21f28fd5594c15b3f1c1d19ceb9290d17a6045a2bd26f516c30d65c5a3d0c57b519ec3bdbe7fa2f8241c6037a31710a8ccb57e626d34f75136f" }
       });
       const products = await res.json();
-      const res2 =await fetch("http://localhost:1337/api/categories", {
+      const res2 =await fetch("http://141.136.44.242:1337/api/categories", {
         headers: { Authorization: "Bearer 27fe20a350b4e2b68a19de4e4ccbe100805600ccb7cdc1c79e7801c4f146b9c3a2a6e55d9426f9ad4324e4d4f561aca2e746b7118b62d86e3076410caa0e6a841bdbabc622aaf21f28fd5594c15b3f1c1d19ceb9290d17a6045a2bd26f516c30d65c5a3d0c57b519ec3bdbe7fa2f8241c6037a31710a8ccb57e626d34f75136f" }
       });
       const categories = await res2.json();
-      const res3 =await fetch("http://localhost:1337/api/brands", {
+      const res3 =await fetch("http://141.136.44.242:1337/api/brands", {
         headers: { Authorization: "Bearer 27fe20a350b4e2b68a19de4e4ccbe100805600ccb7cdc1c79e7801c4f146b9c3a2a6e55d9426f9ad4324e4d4f561aca2e746b7118b62d86e3076410caa0e6a841bdbabc622aaf21f28fd5594c15b3f1c1d19ceb9290d17a6045a2bd26f516c30d65c5a3d0c57b519ec3bdbe7fa2f8241c6037a31710a8ccb57e626d34f75136f" }
       });
       const brands = await res3.json();
@@ -2257,7 +2257,7 @@ export default function ProductsProvider({ children }) {
          
       ]);
       setCategoriesCount(categories.meta.pagination.total);
-      setBrands([brands]);
+      setBrands([brands.data]);
       setBrandsCount(brands.meta.pagination.total);
       setProductsLoading(false);
       // console.log(data.productsCount);
