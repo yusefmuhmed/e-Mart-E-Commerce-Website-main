@@ -12,23 +12,23 @@ export default function SingleProduct({ product }) {
   const { addToCart } = useCart();
   const router = useRouter();
   // const description = product.description.slice(0, 25);
+  const imageUrl =
+  product?.product_img &&
+  product.product_img[0]?.formats?.thumbnail?.url;
 
   const handleBuyThis = (e) => {
     e.preventDefault();
     addToCart(product.id_);
     router.push("/cart");
   };
-  product = product[0];
+  // product = product[0];
   if (gridView) {
     return (
       <div className="col-lg-4 col-md-6 col-sm-6 d-flex">
         <div className="card w-100 my-2 shadow-2-strong">
           <Link href={`/products/${product.id}`}>
             <Image
-              src={
-                product.product_img[0]?.formats?.thumbnail?.url ||
-                "https://placehold.co/600x400"
-              }
+              src={imageUrl || "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png"}
               width={200}
               height={200}
               alt={`${product.name} image`}
@@ -80,10 +80,7 @@ export default function SingleProduct({ product }) {
                 <div className="col-xl-3 col-md-4 d-flex justify-content-center">
                   <div className="bg-image hover-zoom ripple rounded ripple-surface me-md-3 mb-3 mb-md-0">
                     <Image
-                      src={
-                        product.product_img[0]?.formats?.thumbnail?.url ||
-                        "https://placehold.co/600x400"
-                      }
+                      src={imageUrl || "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png"}
                       width={200}
                       height={200}
                       alt={product.name}
