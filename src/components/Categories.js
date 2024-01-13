@@ -1,13 +1,12 @@
 "use client";
 
 import Category from "./Category";
-
 import { useProducts } from "../contexts/ProductsContext";
 import { Skeleton } from "react-skeleton-generator";
 
 export default function Categories() {
   const { categories, productsLoading } = useProducts();
-  // console.log(categories);
+  console.log(categories);
   return (
     <>
       <section>

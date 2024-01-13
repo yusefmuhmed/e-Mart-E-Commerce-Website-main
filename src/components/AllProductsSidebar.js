@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useProducts } from "../contexts/ProductsContext";
 import { Skeleton } from "react-skeleton-generator";
 
@@ -22,27 +21,32 @@ export default function AllProductsSidebar() {
   } = useProducts();
 
   const handleCheck = (e) => {
-    // e.preventDefault();
-    // console.log(e.target.checked);
-    // console.log(cf);
+    const value = e.target.value;
+
     if (e.target.checked) {
+      // Checkbox is checked, add to the arrays
       cf.push(e.target);
-      brand.push(e.target.value);
-      setBrand([...brand]);
-      return;
+      brand.push(value);
+    } else {
+      // Checkbox is unchecked, remove from the arrays
+      const index = brand.indexOf(value);
+      if (index !== -1) {
+        cf.splice(index, 1);
+        brand.splice(index, 1);
+      }
     }
-    cf.pop(e.target);
-    brand.pop(e.target.value);
+
+    // Update the state with the brand array
     setBrand([...brand]);
   };
-  const handleClick = (e) => {
-    e.preventDefault();
-    // console.dir(e.target.textContent.toLowerCase());
-    cf.forEach((box) => (box.checked = false));
-    setBrand([]);
-    setPageNumber(1);
-    setCategory(e.target.textContent.toLowerCase());
-  };
+
+  // const handleClick = (e) => {
+  //   e.preventDefault();
+  //   cf.forEach((box) => (box.checked = false));
+  //   setBrand([]);
+  //   setPageNumber(1);
+  //   setCategory(e.target.textContent.toLowerCase());
+  // };
   return (
     <div className="col-lg-3">
       {/* Toggle button */}
@@ -63,6 +67,7 @@ export default function AllProductsSidebar() {
         id="navbarSupportedContent"
       >
         <div className="accordion" id="accordionPanelsStayOpenExample">
+          {/* Categories Filter*/}
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingOne">
               <button
@@ -73,7 +78,7 @@ export default function AllProductsSidebar() {
                 aria-expanded="true"
                 aria-controls="panelsStayOpen-collapseOne"
               >
-                Material
+                Categories
               </button>
             </h2>
             <div
@@ -82,40 +87,34 @@ export default function AllProductsSidebar() {
               aria-labelledby="headingOne"
             >
               <div className="accordion-body">
-                <ul className="list-unstyled">
-                  {productsLoading && (
-                    <Skeleton.SkeletonThemeProvider>
-                      <Skeleton
-                        style={{
-                          height: "55vh",
-                        }}
-                      />
-                    </Skeleton.SkeletonThemeProvider>
-                  )}
-                  {!productsLoading &&
-                    categories.map((ct, index) => {
-                      return (
-                        <li key={index} className="row">
-                          <a
-                            className={`${
-                              ct === category
-                                ? "bg-primary text-white"
-                                : "text-dark"
-                            }`}
-                            onClick={handleClick}
-                            style={{
-                              cursor: "pointer",
-                            }}
-                          >
-                            {/* {ct[0].toUpperCase() + ct.slice(1)} */}
-                          </a>
-                        </li>
-                      );
-                    })}
-                </ul>
+                {/* Render Category Checkboxes */}
+                {!productsLoading && (
+                  <div className="form-check">
+                    {categories[0].map((ct, index) => (
+                      <div key={index}>
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id={`category_${index}`}
+                          onChange={handleCheck}
+                          defaultChecked=""
+                          value={ct.categorie}
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor={`category_${index}`}
+                        >
+                          {ct.categorie.toUpperCase()}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>
+
+          {/* Material Filter */}
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingTwo">
               <button
@@ -126,7 +125,7 @@ export default function AllProductsSidebar() {
                 aria-expanded="false"
                 aria-controls="panelsStayOpen-collapseTwo"
               >
-                categories
+                Material
               </button>
             </h2>
             <div
@@ -149,14 +148,14 @@ export default function AllProductsSidebar() {
                     </Skeleton.SkeletonThemeProvider>
                   )}
                   {!productsLoading &&
-                    category !== "all" &&
+                    //category !== "all" &&
                     Array.from(
                       new Set(
-                        products
-                          .filter((p) => p.category === category)
-                          .map((p) => p.brand)
+                        products[0]
+                          //.filter((p) => p.categorie === category)
+                          .map((p) => p.material)
                       )
-                    ).map((brand, index) => {
+                    ).map((material, index) => {
                       return (
                         <div
                           className="form-check d-flex flex-col align-items-center justify-content-between"
@@ -166,23 +165,25 @@ export default function AllProductsSidebar() {
                             <input
                               className="form-check-input"
                               type="checkbox"
-                              id={brand}
+                              id={material}
                               defaultChecked=""
                               onChange={handleCheck}
-                              value={brand}
+                              value={material}
                             />
-                            <label className="form-check-label" htmlFor={brand}>
-                              {brand}
+                            <label
+                              className="form-check-label"
+                              htmlFor={material}
+                            >
+                              {material}
                             </label>
                           </div>
                           <span className="badge badge-secondary float-end">
                             {
                               Array.from(
                                 new Set(
-                                  products.filter(
-                                    (p) =>
-                                      p.brand === brand &&
-                                      p.category === category
+                                  products[0].filter(
+                                    (p) => p.material === material
+                                    //&& p.categorie === category
                                   )
                                 )
                               ).length
@@ -191,41 +192,12 @@ export default function AllProductsSidebar() {
                         </div>
                       );
                     })}
-                  {category === "all" &&
-                    brands.map((brand, index) => {
-                      return (
-                        <div
-                          className="form-check d-flex flex-col align-items-center justify-content-between"
-                          key={index}
-                        >
-                          <div>
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id={brand.brand}
-                              defaultChecked=""
-                              onChange={handleCheck}
-                              value={brand.brand}
-                            />
-                            <label
-                              className="form-check-label"
-                              htmlFor={brand.brand}
-                            >
-                              {brand.brand}
-                            </label>
-                          </div>
-                          <span className="badge badge-secondary float-end">
-                            {brand?._count}
-                          </span>
-                        </div>
-                      );
-                    })}
-                  {/* Checked checkbox */}
                 </div>
               </div>
             </div>
           </div>
 
+          {/* Brands Filter */}
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingTwo">
               <button
@@ -259,49 +231,46 @@ export default function AllProductsSidebar() {
                     </Skeleton.SkeletonThemeProvider>
                   )}
                   {!productsLoading &&
-                    category !== "all" &&
-                    Array.from(
-                      new Set(
-                        products
-                          .filter((p) => p.category === category)
-                          .map((p) => p.brand)
-                      )
-                    ).map((brand, index) => {
-                      return (
-                        <div
-                          className="form-check d-flex flex-col align-items-center justify-content-between"
-                          key={index}
-                        >
-                          <div>
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id={brand}
-                              defaultChecked=""
-                              onChange={handleCheck}
-                              value={brand}
-                            />
-                            <label className="form-check-label" htmlFor={brand}>
-                              {brand}
-                            </label>
-                          </div>
-                          <span className="badge badge-secondary float-end">
-                            {
-                              Array.from(
-                                new Set(
-                                  products.filter(
-                                    (p) =>
-                                      p.brand === brand &&
-                                      p.category === category
+                    Array.from(new Set(brands[0].map((p) => p.name))).map(
+                      (brand, index) => {
+                        return (
+                          <div
+                            className="form-check d-flex flex-col align-items-center justify-content-between"
+                            key={index}
+                          >
+                            <div>
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id={brand}
+                                defaultChecked=""
+                                onChange={handleCheck}
+                                value={brand}
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor={brand}
+                              >
+                                {brand}
+                              </label>
+                            </div>
+                            <span className="badge badge-secondary float-end">
+                              {
+                                Array.from(
+                                  new Set(
+                                    products[0].filter(
+                                      (p) => p.brand === brand
+                                      // &&  p.categorie === category
+                                    )
                                   )
-                                )
-                              ).length
-                            }
-                          </span>
-                        </div>
-                      );
-                    })}
-                  {category === "all" &&
+                                ).length
+                              }
+                            </span>
+                          </div>
+                        );
+                      }
+                    )}
+                  {/* {category === "all" &&
                     brands.map((brand, index) => {
                       return (
                         <div
@@ -329,12 +298,13 @@ export default function AllProductsSidebar() {
                           </span>
                         </div>
                       );
-                    })}
-                  {/* Checked checkbox */}
+                    })} */}
                 </div>
               </div>
             </div>
           </div>
+
+          {/* size Filter*/}
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingTwo">
               <button
@@ -345,7 +315,7 @@ export default function AllProductsSidebar() {
                 aria-expanded="false"
                 aria-controls="panelsStayOpen-collapseTwo"
               >
-                size
+                Size
               </button>
             </h2>
             <div
@@ -368,14 +338,11 @@ export default function AllProductsSidebar() {
                     </Skeleton.SkeletonThemeProvider>
                   )}
                   {!productsLoading &&
-                    category !== "all" &&
                     Array.from(
                       new Set(
-                        products
-                          .filter((p) => p.category === category)
-                          .map((p) => p.brand)
+                        products[0].flatMap((p) => p.sizes) // Flatten the sizes arrays
                       )
-                    ).map((brand, index) => {
+                    ).map((size, index) => {
                       return (
                         <div
                           className="form-check d-flex flex-col align-items-center justify-content-between"
@@ -385,23 +352,23 @@ export default function AllProductsSidebar() {
                             <input
                               className="form-check-input"
                               type="checkbox"
-                              id={brand}
+                              id={size}
                               defaultChecked=""
                               onChange={handleCheck}
-                              value={brand}
+                              value={size}
                             />
-                            <label className="form-check-label" htmlFor={brand}>
-                              {brand}
+                            <label className="form-check-label" htmlFor={size}>
+                              {size}
                             </label>
                           </div>
                           <span className="badge badge-secondary float-end">
                             {
                               Array.from(
                                 new Set(
-                                  products.filter(
+                                  products[0].filter(
                                     (p) =>
-                                      p.brand === brand &&
-                                      p.category === category
+                                      p.sizes.includes(size)
+                                      // &&  p.categorie === category
                                   )
                                 )
                               ).length
@@ -410,36 +377,6 @@ export default function AllProductsSidebar() {
                         </div>
                       );
                     })}
-                  {category === "all" &&
-                    brands.map((brand, index) => {
-                      return (
-                        <div
-                          className="form-check d-flex flex-col align-items-center justify-content-between"
-                          key={index}
-                        >
-                          <div>
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id={brand.brand}
-                              defaultChecked=""
-                              onChange={handleCheck}
-                              value={brand.brand}
-                            />
-                            <label
-                              className="form-check-label"
-                              htmlFor={brand.brand}
-                            >
-                              {brand.brand}
-                            </label>
-                          </div>
-                          <span className="badge badge-secondary float-end">
-                            {brand?._count}
-                          </span>
-                        </div>
-                      );
-                    })}
-                  {/* Checked checkbox */}
                 </div>
               </div>
             </div>
