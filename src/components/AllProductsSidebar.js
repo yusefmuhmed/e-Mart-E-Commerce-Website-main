@@ -20,24 +20,55 @@ export default function AllProductsSidebar() {
     productsLoading,
   } = useProducts();
 
-  const handleCheck = (e) => {
-    const value = e.target.value;
+  const selectedBrands = [];
+  const selectedMaterials = [];
+  const selectedCategories = [];
 
-    if (e.target.checked) {
-      // Checkbox is checked, add to the arrays
-      cf.push(e.target);
-      brand.push(value);
-    } else {
-      // Checkbox is unchecked, remove from the arrays
-      const index = brand.indexOf(value);
-      if (index !== -1) {
-        cf.splice(index, 1);
-        brand.splice(index, 1);
+  const handleCheck = (e) => {
+    const { id, value, checked } = e.target;
+
+    if (id === 'brand') {
+      // Checkbox belongs to the brand filter
+      if (checked) {
+        // Checkbox is checked, add to the brands array
+        selectedBrands.push(value);
+      } else {
+        // Checkbox is unchecked, remove from the brands array
+        const index = selectedBrands.indexOf(value);
+        if (index !== -1) {
+          selectedBrands.splice(index, 1);
+        }
+      }
+    } else if (id === 'material') {
+      // Checkbox belongs to the material filter
+      if (checked) {
+        // Checkbox is checked, add to the materials array
+        selectedMaterials.push(value);
+      } else {
+        // Checkbox is unchecked, remove from the materials array
+        const index = selectedMaterials.indexOf(value);
+        if (index !== -1) {
+          selectedMaterials.splice(index, 1);
+        }
+      }
+    } else if (id === 'category') {
+      // Checkbox belongs to the category filter
+      if (checked) {
+        // Checkbox is checked, add to the categories array
+        selectedCategories.push(value);
+      } else {
+        // Checkbox is unchecked, remove from the categories array
+        const index = selectedCategories.indexOf(value);
+        if (index !== -1) {
+          selectedCategories.splice(index, 1);
+        }
       }
     }
-
-    // Update the state with the brand array
-    setBrand([...brand]);
+    
+    
+    setBrand(selectedBrands);
+    setCategory(selectedCategories);
+    
   };
 
   // const handleClick = (e) => {
@@ -95,14 +126,14 @@ export default function AllProductsSidebar() {
                         <input
                           className="form-check-input"
                           type="checkbox"
-                          id={`category_${index}`}
+                          id={`category`}
                           onChange={handleCheck}
                           defaultChecked=""
                           value={ct.categorie}
                         />
                         <label
                           className="form-check-label"
-                          htmlFor={`category_${index}`}
+                          htmlFor={`category`}
                         >
                           {ct.categorie.toUpperCase()}
                         </label>
