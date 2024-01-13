@@ -33,13 +33,13 @@ export default function AllProductsSidebar() {
     setCategory([...category]);
   };
     
-  const handleClick = (e) => {
-    e.preventDefault();
-    cf.forEach((box) => (box.checked = false));
-    setBrand([]);
-    setPageNumber(1);
-    setCategory(e.target.textContent.toLowerCase());
-  };
+  // const handleClick = (e) => {
+  //   e.preventDefault();
+  //   cf.forEach((box) => (box.checked = false));
+  //   setBrand([]);
+  //   setPageNumber(1);
+  //   setCategory(e.target.textContent.toLowerCase());
+  // };
   return (
     <div className="col-lg-3">
       {/* Toggle button */}
