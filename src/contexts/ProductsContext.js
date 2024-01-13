@@ -19,28 +19,37 @@ export default function ProductsProvider({ children }) {
   const [pageNumber, setPageNumber] = useState(1);
   const [gridView, setGridView] = useState(true);
   const [brands, setBrands] = useState([]);
+  const [material, setMaterial] = useState([]);
   const [brandsCount, setBrandsCount] = useState(0);
   const [brand, setBrand] = useState([]);
+  const [sizes, setSizes] = useState([]);
 
   const productsVisible = useRef([]);
   const productsFiltered = useRef([]);
 
   if (!productsLoading) {
-    productsFiltered.current = products
+    productsFiltered.current = products[0]
       .filter((p) => {
         if (category.length === 0) {
           return p;
-        } else  if (p.some(obj => category.includes(obj.categorie))) {
+        } else  if (category === p.categorie) {
           return p;
         }
       })
       .filter((p1) => {
         if (brand.length === 0) {
           return p1;
-        } else if (p.some(obj => brand.includes(obj.brand))) {
+        } else if (brand.includes(p1.brand)) {
           return p1;
         }
-      });
+      })
+      .filter((p2) => {
+        if (material.length === 0) {
+          return p2;
+        } else if (material.includes(p2.material)) {
+          return p2;
+        }
+      })
 
     productsVisible.current = productsFiltered.current.slice(
       (pageNumber - 1) * 12,
@@ -99,6 +108,10 @@ export default function ProductsProvider({ children }) {
         brand,
         setBrand,
         productsFiltered,
+        material, 
+        setMaterial,
+        sizes, 
+        setSizes
       }}
     >
       {children}

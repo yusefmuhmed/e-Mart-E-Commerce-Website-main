@@ -18,20 +18,73 @@ export default function AllProductsSidebar() {
     products,
     setPageNumber,
     productsLoading,
+    sizes,
+    setSizes,
+    material,
+    setMaterial
   } = useProducts();
 
 
+  // const handleCheck = (e) => {
+  //   if (e.target.checked) {
+  //     cf.push(e.target);
+  //     category.push(e.target.value);
+  //     setCategory([...category]);
+  //     return;
+  //   }
+  //   cf.pop(e.target);
+  //   category.pop(e.target.value);
+  //   setCategory([...category]);
+  // };
+
   const handleCheck = (e) => {
+    const filterType = e.target.id;
+    const filterValue = e.target.value;
+  
     if (e.target.checked) {
-      cf.push(e.target);
-      category.push(e.target.value);
-      setCategory([...category]);
-      return;
+      switch (filterType) {
+        case 'material':
+          material.push(filterValue);
+          setMaterial([...material]);
+          break;
+        case 'category':
+          category.push(filterValue);
+          setCategory([...category]);
+          break;
+        case 'brand':
+          brand.push(filterValue);
+          setBrand([...brand]);
+          break;
+        case 'size':
+          sizes.push(filterValue);
+          setSizes([...sizes]);
+          break;
+        default:
+          break;
+      }
+      return
+    } else {
+      // Remove the value from the respective array based on filter type
+      switch (filterType) {
+        case 'material':
+          setMaterial((prevMaterial) => prevMaterial.filter((item) => item !== filterValue));
+          break;
+        case 'category':
+          setCategory((prevCategory) => prevCategory.filter((item) => item !== filterValue));
+          break;
+        case 'brand':
+          setBrand((prevBrand) => prevBrand.filter((item) => item !== filterValue));
+          break;
+        case 'size':
+          setSizes((prevSizes) => prevSizes.filter((item) => item !== filterValue));
+          break;
+        default:
+          break;
+      }
     }
-    cf.pop(e.target);
-    category.pop(e.target.value);
-    setCategory([...category]);
   };
+  
+  
     
   // const handleClick = (e) => {
   //   e.preventDefault();
@@ -158,7 +211,7 @@ export default function AllProductsSidebar() {
                             <input
                               className="form-check-input"
                               type="checkbox"
-                              id={material}
+                              id='material'
                               defaultChecked=""
                               onChange={handleCheck}
                               value={material}
