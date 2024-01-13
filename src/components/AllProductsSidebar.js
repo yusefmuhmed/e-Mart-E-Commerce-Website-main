@@ -20,64 +20,26 @@ export default function AllProductsSidebar() {
     productsLoading,
   } = useProducts();
 
-  const selectedBrands = [];
-  const selectedMaterials = [];
-  const selectedCategories = [];
 
   const handleCheck = (e) => {
-    const { id, value, checked } = e.target;
-
-    if (id === 'brand') {
-      // Checkbox belongs to the brand filter
-      if (checked) {
-        // Checkbox is checked, add to the brands array
-        selectedBrands.push(value);
-      } else {
-        // Checkbox is unchecked, remove from the brands array
-        const index = selectedBrands.indexOf(value);
-        if (index !== -1) {
-          selectedBrands.splice(index, 1);
-        }
-      }
-    } else if (id === 'material') {
-      // Checkbox belongs to the material filter
-      if (checked) {
-        // Checkbox is checked, add to the materials array
-        selectedMaterials.push(value);
-      } else {
-        // Checkbox is unchecked, remove from the materials array
-        const index = selectedMaterials.indexOf(value);
-        if (index !== -1) {
-          selectedMaterials.splice(index, 1);
-        }
-      }
-    } else if (id === 'category') {
-      // Checkbox belongs to the category filter
-      if (checked) {
-        // Checkbox is checked, add to the categories array
-        selectedCategories.push(value);
-      } else {
-        // Checkbox is unchecked, remove from the categories array
-        const index = selectedCategories.indexOf(value);
-        if (index !== -1) {
-          selectedCategories.splice(index, 1);
-        }
-      }
+    if (e.target.checked) {
+      cf.push(e.target);
+      category.push(e.target.value);
+      setCategory([...category]);
+      return;
     }
-    
-    
-    setBrand(selectedBrands);
-    setCategory(selectedCategories);
-    
+    cf.pop(e.target);
+    category.pop(e.target.value);
+    setCategory([...category]);
   };
-
-  // const handleClick = (e) => {
-  //   e.preventDefault();
-  //   cf.forEach((box) => (box.checked = false));
-  //   setBrand([]);
-  //   setPageNumber(1);
-  //   setCategory(e.target.textContent.toLowerCase());
-  // };
+    
+  const handleClick = (e) => {
+    e.preventDefault();
+    cf.forEach((box) => (box.checked = false));
+    setBrand([]);
+    setPageNumber(1);
+    setCategory(e.target.textContent.toLowerCase());
+  };
   return (
     <div className="col-lg-3">
       {/* Toggle button */}
