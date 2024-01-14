@@ -12,20 +12,23 @@ export default function SingleProduct({ product }) {
   const { addToCart } = useCart();
   const router = useRouter();
   // const description = product.description.slice(0, 25);
+  const imageUrl =
+  product?.product_img &&
+  product.product_img[0]?.formats?.thumbnail?.url;
 
   const handleBuyThis = (e) => {
     e.preventDefault();
     addToCart(product.id_);
     router.push("/cart");
   };
-  product=product[0]
+  // product = product[0];
   if (gridView) {
     return (
       <div className="col-lg-4 col-md-6 col-sm-6 d-flex">
         <div className="card w-100 my-2 shadow-2-strong">
           <Link href={`/products/${product.id}`}>
             <Image
-              src={product.product_img[0].formats.thumbnail.url}
+              src={imageUrl || "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png"}
               width={200}
               height={200}
               alt={`${product.name} image`}
@@ -49,7 +52,9 @@ export default function SingleProduct({ product }) {
             </div>
             {
               <p className="card-text">
-                {product.about.slice(0, 40) + " ..."}
+                {product.about
+                  ? product.about.slice(0, 40) + " ..."
+                  : "No information available."}
               </p>
             }
             <div className="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
@@ -75,7 +80,7 @@ export default function SingleProduct({ product }) {
                 <div className="col-xl-3 col-md-4 d-flex justify-content-center">
                   <div className="bg-image hover-zoom ripple rounded ripple-surface me-md-3 mb-3 mb-md-0">
                     <Image
-                      src={product.product_img[0].thumbnail.url}
+                      src={imageUrl || "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png"}
                       width={200}
                       height={200}
                       alt={product.name}
@@ -97,20 +102,24 @@ export default function SingleProduct({ product }) {
                   <h5>{product.name}</h5>
                   <div className="d-flex flex-row">
                     <div className="text-warning mb-1 me-2">
-                      {[...Array(Math.floor(product.rating.toFixed(1)))].map(
-                        (e, i) => {
-                          return <i className="fa fa-star" key={i} />;
-                        }
-                      )}
-                      {/* <i className="fa fa-star" />
-                      <i className="fa fa-star" />
-                      <i className="fa fa-star" />
-                      <i className="fa fa-star" /> */}
-                      {product.rating.toFixed(1) -
-                        Math.round(product.rating).toFixed(1) !==
-                        0 && <i className="fas fa-star-half-alt" />}
-                      <span className="ms-1">{product.rating.toFixed(1)}</span>
+                      {[
+                        ...Array(
+                          Math.floor(
+                            product.rating ? product.rating.toFixed(1) : 0
+                          )
+                        ),
+                      ].map((e, i) => {
+                        return <i className="fa fa-star" key={i} />;
+                      })}
+                      {product.rating &&
+                        product.rating.toFixed(1) -
+                          Math.round(product.rating).toFixed(1) !==
+                          0 && <i className="fas fa-star-half-alt" />}
+                      <span className="ms-1">
+                        {product.rating ? product.rating.toFixed(1) : "0"}
+                      </span>
                     </div>
+
                     {/* <span className="text-muted">154 orders</span> */}
                   </div>
                   <p className="text mb-4 mb-md-0">{product.about}</p>

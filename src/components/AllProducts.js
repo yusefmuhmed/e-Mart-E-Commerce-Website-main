@@ -2,7 +2,13 @@
 import SingleProduct from "./SingleProduct";
 
 export default function AllProducts({ products }) {
-  return products.map((product) => {
-    return <SingleProduct key={product.id} product={product} />;
-  });
+  //for (let i = 0; i < products.length; i++) {
+    return products.map((product) => {
+      return <SingleProduct key={product.id} product={product} />;
+    });
+    
+  //}
+  
+  
 }
+

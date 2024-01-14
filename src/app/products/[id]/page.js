@@ -172,7 +172,7 @@ export default function Product({ params }) {
                     <p>{product?.about}</p>
                     <div className="row">
                       <dt className="col-3">Category:</dt>
-                      <dd className="col-9">{product?.categorie.categorie}</dd>
+                      <dd className="col-9">{product?.Category.Category}</dd>
                       <dt className="col-3">Brand</dt>
                       <dd className="col-9">{product?.brand.name}</dd>
                       <dt className="col-3">Model</dt>
