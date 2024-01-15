@@ -53,7 +53,7 @@ export default async function Home() {
 
       <ContactForm app={app} contact={contact} />
 
-      <Footer app={app} />
+      {/* <Footer app={app} /> */}
     </>
   )
 }

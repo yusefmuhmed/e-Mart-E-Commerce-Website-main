@@ -20,9 +20,10 @@ import "./globals.css";
 import "/node_modules/@fortawesome/fontawesome-free/css/all.min.css";
 import Script from "next/script";
 import RootLayoutHeader from "../components/RootLayoutHeader";
-import Footer from "../components/Footer";
+import Footer from "../components/core/footer";
 import AuthProvider from "../components/AuthProvider";
 import AllContext from "../contexts/AllContext";
+import Navbar from '../components/core/navbar'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,7 +32,20 @@ export const metadata = {
   description: "Online shopping platform",
 };
 
-export default function RootLayout({ children }) {
+
+import getApp from '../app/cms/getapp';
+
+
+
+  // concurrent fetch
+  
+
+export default async function RootLayout({ children }) {
+
+  const [app] = await Promise.all([
+    getApp("en")
+  ]);
+
   return (
     <html lang="en">
       <body
@@ -43,10 +57,11 @@ export default function RootLayout({ children }) {
           justifyContent: "space-between",
         }}
       >
+        <Navbar dark></Navbar>
         <AuthProvider>
            <AllContext>
             {children}
-            {/* <Footer /> */}
+            <Footer   app={app} />
           </AllContext>
         </AuthProvider>
         <Script

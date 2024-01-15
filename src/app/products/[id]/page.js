@@ -76,33 +76,12 @@ export default function Product({ params }) {
     );
     return (
       <>
-        {/* Heading */}
-        <div className="bg-primary">
-          <div className="container py-4">
-            {/* Breadcrumb */}
-            {/* <nav className="d-flex">
-              <h6 className="mb-0">
-                <Link href="/" className="text-white-50">
-                  Home
-                </Link>
-
-                <span className="text-white-50 mx-2"> &gt; </span>
-                <Link href="/products" className="text-white-50">
-                  Products
-                </Link>
-                <span className="text-white-50 mx-2"> &gt; </span>
-                <Link href={`/products/${product?.id_}`} className="text-white">
-                  <u>{product?.title}</u>
-                </Link>
-              </h6>
-            </nav> */}
-            {/* Breadcrumb */}
-          </div>
-        </div>
-        {/* Heading */}
+       
+        
+        
         <>
           <section className="py-5">
-            <div className="container">
+            <div className="container" style={{ marginTop: "6rem" }}>
               <div className="row gx-5">
                 <aside className="col-lg-6">
                   <div className="border rounded-4 mb-3 d-flex justify-content-center ">
