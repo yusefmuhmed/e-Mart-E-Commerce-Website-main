@@ -69,7 +69,7 @@ export default function Product({ params }) {
       </div>
     );
   } else {
-    const product = products?.find((p) => p.id_ === Number(params.id));
+    const product = products[0].find((p) => p.id === Number(params.id));
     // console.log(products);
     const similarProducts = products?.filter(
       (p) => p?.category === product?.category
@@ -114,12 +114,12 @@ export default function Product({ params }) {
                       href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/detail1/big.webp"
                     >
                       <Image
-                        alt={product?.title + " image"}
+                        alt={product?.name + " image"}
                         style={{ width: "100%", height: "500px" }}
                         width={500}
                         height={500}
                         className="rounded-4 fit"
-                        src={product?.thumbnail}
+                        src={product?.product_img[0].formats.thumbnail.url}
                       />
                     </a>
                   </div>
@@ -172,9 +172,9 @@ export default function Product({ params }) {
                     <p>{product?.about}</p>
                     <div className="row">
                       <dt className="col-3">Category:</dt>
-                      <dd className="col-9">{product?.Category.Category}</dd>
+                      <dd className="col-9">{product?.categorie}</dd>
                       <dt className="col-3">Brand</dt>
-                      <dd className="col-9">{product?.brand.name}</dd>
+                      <dd className="col-9">{product?.brand?.name}</dd>
                       <dt className="col-3">Model</dt>
                       <dd className="col-9">{product?.name}</dd>
                     </div>
@@ -470,12 +470,12 @@ export default function Product({ params }) {
                           return (
                             <div key={index} className="d-flex mb-3">
                               <Link
-                                href={`/products/${product.id}`}
+                                href={`/products/${product[index+1].id}`}
                                 className="me-3"
                               >
                                 <Image
-                                  src={`${product.product_img[0].formats.thumbnail}`}
-                                  alt={product.name + " image"}
+                                  src={`${product[index+1].product_img[0].formats.thumbnail.url}`}
+                                  alt={product[index+1].name + " image"}
                                   height={96}
                                   width={96}
                                   style={{ minWidth: 96, height: 96 }}
@@ -484,18 +484,18 @@ export default function Product({ params }) {
                               </Link>
                               <div className="info">
                                 <Link
-                                  href={`/products/${product.id}`}
+                                  href={`/products/${product[index+1].id}`}
                                   className="nav-link mb-1"
                                 >
-                                  {product.name} <br />
-                                  {product.brand.name}
+                                  {product[index+1].name} <br />
+                                  {product[index+1].brand?.name}
                                 </Link>
                                 <strong className="text-dark">
                                   $
                                   {(
-                                    product.price -
-                                    product.price *
-                                    (product.discount/ 100)
+                                    product[index+1].price -
+                                    product[index+1].price *
+                                    (product[index+1].discount/ 100)
                                   ).toFixed(2)}
                                 </strong>
                               </div>
