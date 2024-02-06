@@ -17,8 +17,9 @@ function Link({ href, ...rest }: Props, ref: Props['ref']) {
     const { toLocale, activeClassName } = rest;
 
     function getLocalizedHref(originalHref: string) {
-        originalHref = originalHref.replace(/^\//, '/' + locale + '/');
-        return toLocale ? originalHref.replace('/' + locale + '/', '/' + toLocale + '/') : originalHref;
+        return originalHref 
+        // = originalHref.replace(/^\//, '/' + locale + '/');
+        // return toLocale ? originalHref.replace('/' + locale + '/', '/' + toLocale + '/') : originalHref;
     }
 
     const localizedHref =

@@ -6,6 +6,7 @@ import ServicesCard from '../../components/whatwedo/servicescard';
 
 import getApp from '../cms/getapp';
 import getServices from '../cms/getservices';
+ 
 
 export default async function Services({ params: { locale } }: { params: { locale: string } }) {
 

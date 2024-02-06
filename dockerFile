@@ -32,7 +32,7 @@ COPY --from=build /app/messages ./messages
 COPY --from=build /app/public ./public
 COPY --from=build /app/package*.json ./
 COPY --from=build /app/localization*.ts ./
-COPY --from=build /app/middleware*.ts ./
+# COPY --from=build /app/middleware*.ts ./
 COPY --from=build /app/next.config*.js ./
 COPY --from=build /app/next-env.d*.ts ./
 

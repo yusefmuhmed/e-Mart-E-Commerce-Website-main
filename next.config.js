@@ -15,6 +15,8 @@ module.exports = withNextIntl({
   },
   experimental: {
     appDir: true,
+  serverActions:true
+
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
