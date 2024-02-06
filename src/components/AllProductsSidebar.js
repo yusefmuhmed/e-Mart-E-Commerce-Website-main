@@ -386,7 +386,7 @@ export default function AllProductsSidebar() {
                   {!productsLoading &&
                     Array.from(
                       new Set(
-                        products[0].flatMap((p) => p.sizes) // Flatten the sizes arrays
+                        products[0].flatMap((p) => p?.sizeTypes) // Flatten the sizes arrays
                       )
                     ).map((size, index) => {
                       return (
@@ -413,7 +413,7 @@ export default function AllProductsSidebar() {
                                 new Set(
                                   products[0].filter(
                                     (p) =>
-                                      p.sizes.includes(size)
+                                      p?.sizeTypes?.includes(size)
                                       // &&  p.categorie === category
                                   )
                                 )
