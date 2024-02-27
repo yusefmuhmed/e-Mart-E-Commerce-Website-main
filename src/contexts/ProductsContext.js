@@ -61,8 +61,8 @@ export default function ProductsProvider({ children }) {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch("http://141.136.44.242:1337/api/products?pagination[pageSize]=1000", {
-        headers: { Authorization: "Bearer b05341289ac399b5d48a42bda5fc609bf54b27e313f5cc39ec77206b1f0ad09ddab71caa9bfabb0eab1fc307589daaf3ea2862cc1432310761a93c52247d07c0d61aced186d39214141df627b04e70c72131ffe2e2d61607122413310a0ff092cceac819c456c343a0ee1af9c7d393e0359aae39ed97fcb9900afebf64600a1b" }
+      const res = await fetch("http://141.136.44.242:1337/api/products?populate=*", {
+        headers: { Authorization: "Bearer 27fe20a350b4e2b68a19de4e4ccbe100805600ccb7cdc1c79e7801c4f146b9c3a2a6e55d9426f9ad4324e4d4f561aca2e746b7118b62d86e3076410caa0e6a841bdbabc622aaf21f28fd5594c15b3f1c1d19ceb9290d17a6045a2bd26f516c30d65c5a3d0c57b519ec3bdbe7fa2f8241c6037a31710a8ccb57e626d34f75136f" }
       });
       
       const products = await res.json();
