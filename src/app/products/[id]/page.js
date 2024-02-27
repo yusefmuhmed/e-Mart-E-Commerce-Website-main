@@ -98,7 +98,7 @@ export default function Product({ params }) {
                         width={500}
                         height={500}
                         className="rounded-4 fit"
-                        src={product?.product_img[0].formats.thumbnail.url}
+                        src={product?.product_img[0]?.formats?.thumbnail?.url}
                       />
                     </a>
                   </div>
