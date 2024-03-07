@@ -32,7 +32,6 @@ export default function ProductsProvider({
   const [material, setMaterial] = useState([]);
   const [brandsCount, setBrandsCount] = useState(0);
   const [brand, setBrand] = useState([]);
-  const [sizes, setSizes] = useState([]);
   const [sizeType, setSizeType] = useState([]);
 
 
@@ -63,22 +62,22 @@ export default function ProductsProvider({
         }
       })
       .filter((p3) => {
-        if (p3.sizeTypes.length && p3.sizeTypes.length === 0) {
+        if (sizeType.length === 0) {
           return p3;
         } else {
-          return p3.sizeTypes.some((sizeType) => {
-            return (sizeType.sizes.some((size) => sizeType.includes(size.name)));
-          });
+          return p3.sizeTypes.some((st) =>
+          st.sizes.some((size) => sizeType.includes(size.name))
+        );
         }
       });
-  
+
     productsVisible.current = productsFiltered.current.slice(
       (pageNumber - 1) * 12,
       pageNumber * 12
     );
   }
-  
-  
+
+
 
   useEffect(() => {
     (async () => {
@@ -105,19 +104,22 @@ export default function ProductsProvider({
       });
       const brands = await res3.json();
 
- const sizesObject = products[0]?.reduce((acc, product) => {
-    if (product.sizeTypes) {
-      product.sizeTypes.forEach((sizeType) => {
-        const { __component, sizes } = sizeType;
-        acc[__component] = acc[__component] || [];
-        acc[__component] = acc[__component].concat(sizes);
-      });
-    }
-    return acc;
-  }, {});
+      // const sizesObject = products[0] ?.reduce((acc, product) => {
+      //   if (product.sizeTypes) {
+      //     product.sizeTypes.forEach((sizeType) => {
+      //       const {
+      //         __component,
+      //         sizes
+      //       } = sizeType;
+      //       acc[__component] = acc[__component] || [];
+      //       acc[__component] = acc[__component].concat(sizes);
+      //     });
+      //   }
+      //   return acc;
+      // }, {});
 
 
-setSizeType([sizesObject])
+      // setSizeType([sizesObject])
 
       setProducts([products.data]);
       setProductsCount(products.meta.pagination.total);
@@ -155,14 +157,13 @@ setSizeType([sizesObject])
         productsFiltered,
         material,
         setMaterial,
-        sizes,
-        setSizes
+        sizeType,
+        setSizeType
       }
     } > {
       children
     } <
     Toaster position = "top-center" / >
-    <
-    /ProductsContext.Provider>
+    </ProductsContext.Provider>
   );
 }

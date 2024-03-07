@@ -23,7 +23,8 @@ export default function AllProductsSidebar() {
     material,
     setMaterial,
     sizesObject,
-    setSizesObject
+    sizeType,
+    setSizeType
   } = useProducts();
 
 
@@ -46,8 +47,8 @@ export default function AllProductsSidebar() {
           setBrand([...brand]);
           break;
         case 'size':
-          sizes.push(filterValue);
-          setSizes([...sizes]);
+          sizeType.push(filterValue);
+          setSizeType([...sizeType]);
           break;
         default:
           break;
@@ -66,7 +67,7 @@ export default function AllProductsSidebar() {
           setBrand((prevBrand) => prevBrand.filter((item) => item !== filterValue));
           break;
         case 'size':
-          setSizes((prevSizes) => prevSizes.filter((item) => item !== filterValue));
+          setSizeType((prevSizes) => prevSizes.filter((item) => item !== filterValue));
           break;
         default:
           break;
@@ -320,21 +321,21 @@ export default function AllProductsSidebar() {
           
          
 
-          <div>
-  {/* Render loading state while waiting for data */}
+          {/* <div>
+  {}
   {productsLoading && sizesObject !== null && (
     <Skeleton.SkeletonThemeProvider>
       <Skeleton
         style={
           {
-            // height: "auto",
+            
           }
         }
       />
     </Skeleton.SkeletonThemeProvider>
   )}
 
-  {/* Iterate over the keys of sizesObject */}
+  {}
   {sizesObject &&
     Object.keys(sizesObject).map((sizeType, index) => (
       <div className="accordion-item" key={index}>
@@ -356,10 +357,10 @@ export default function AllProductsSidebar() {
           aria-labelledby={`heading${index}`}
         >
           <div className="accordion-body">
-            {/* Render checkboxes for the current sizeType */}
+            {}
             {sizesObject[sizeType].map((size, sizeIndex) => (
               <div key={sizeIndex}>
-                {/* Render size details here */}
+                {}
                 <input
                   className="form-check-input"
                   type="checkbox"
@@ -374,8 +375,49 @@ export default function AllProductsSidebar() {
         </div>
       </div>
     ))}
-</div>
+</div> */}
 
+<div className="accordion-item">
+      {/* ... (existing code) */}
+      <div>
+        {/* Checked checkbox */}
+        {!productsLoading &&
+          Array.from(
+            new Set(
+              products[0].flatMap((p) => p.sizeTypes.flatMap((sizeType) => sizeType.sizes.map((size) => size.name)))
+            )
+          ).map((sizeName, index) => (
+            <div
+              className="form-check d-flex flex-col align-items-center justify-content-between"
+              key={index}
+            >
+              <div>
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  id='size'
+                  defaultChecked=""
+                  onChange={handleCheck}
+                  value={sizeName}
+                />
+                <label
+                  className="form-check-label"
+                  htmlFor={sizeName}
+                >
+                  {sizeName}
+                </label>
+              </div>
+              <span className="badge badge-secondary float-end">
+                {
+                  products[0].filter(
+                    (p) => p.sizeTypes.some((sizeType) => sizeType.sizes.some((size) => size.name === sizeName))
+                  ).length
+                }
+              </span>
+            </div>
+          ))}
+      </div>
+    </div>
 
 
 
