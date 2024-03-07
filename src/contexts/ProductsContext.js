@@ -33,6 +33,8 @@ export default function ProductsProvider({
   const [brandsCount, setBrandsCount] = useState(0);
   const [brand, setBrand] = useState([]);
   const [sizes, setSizes] = useState([]);
+  const [sizeType, setSizeType] = useState([]);
+
 
   const productsVisible = useRef([]);
   const productsFiltered = useRef([]);
@@ -60,18 +62,27 @@ export default function ProductsProvider({
           return p2;
         }
       })
-
+      .filter((p3) => {
+        if (p3.sizeTypes.length && p3.sizeTypes.length === 0) {
+          return p3;
+        } else {
+          return p3.sizeTypes.some((sizeType) => {
+            return (sizeType.sizes.some((size) => sizeType.includes(size.name)));
+          });
+        }
+      });
+  
     productsVisible.current = productsFiltered.current.slice(
       (pageNumber - 1) * 12,
       pageNumber * 12
     );
-
-    // console.log(productsVisible.current);
   }
+  
+  
 
   useEffect(() => {
     (async () => {
-      const res = await fetch("http://141.136.44.242:1337/api/products?populate=*", {
+      const res = await fetch("http://141.136.44.242:1337/api/products?populate=deep", {
         headers: {
           Authorization: "Bearer 27fe20a350b4e2b68a19de4e4ccbe100805600ccb7cdc1c79e7801c4f146b9c3a2a6e55d9426f9ad4324e4d4f561aca2e746b7118b62d86e3076410caa0e6a841bdbabc622aaf21f28fd5594c15b3f1c1d19ceb9290d17a6045a2bd26f516c30d65c5a3d0c57b519ec3bdbe7fa2f8241c6037a31710a8ccb57e626d34f75136f"
         }
@@ -86,14 +97,6 @@ export default function ProductsProvider({
       const categories = await res2.json();
 
 
-      const allComponents = products.data.flatMap((product) => product.sizeTypes.map((sizeType) => sizeType.__component));
-      const uniqueComponents = [...new Set(allComponents)];
-
-      console.log(uniqueComponents);
-
-
-
-
 
       const res3 = await fetch("http://141.136.44.242:1337/api/brands", {
         headers: {
@@ -101,6 +104,20 @@ export default function ProductsProvider({
         }
       });
       const brands = await res3.json();
+
+ const sizesObject = products[0]?.reduce((acc, product) => {
+    if (product.sizeTypes) {
+      product.sizeTypes.forEach((sizeType) => {
+        const { __component, sizes } = sizeType;
+        acc[__component] = acc[__component] || [];
+        acc[__component] = acc[__component].concat(sizes);
+      });
+    }
+    return acc;
+  }, {});
+
+
+setSizeType([sizesObject])
 
       setProducts([products.data]);
       setProductsCount(products.meta.pagination.total);

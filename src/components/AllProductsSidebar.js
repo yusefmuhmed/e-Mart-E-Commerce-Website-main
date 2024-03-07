@@ -21,21 +21,11 @@ export default function AllProductsSidebar() {
     sizes,
     setSizes,
     material,
-    setMaterial
+    setMaterial,
+    sizesObject,
+    setSizesObject
   } = useProducts();
 
-
-  // const handleCheck = (e) => {
-  //   if (e.target.checked) {
-  //     cf.push(e.target);
-  //     category.push(e.target.value);
-  //     setCategory([...category]);
-  //     return;
-  //   }
-  //   cf.pop(e.target);
-  //   category.pop(e.target.value);
-  //   setCategory([...category]);
-  // };
 
   const handleCheck = (e) => {
     const filterType = e.target.id;
@@ -84,15 +74,20 @@ export default function AllProductsSidebar() {
     }
   };
   
+  // const sizesObject = products[0]?.reduce((acc, product) => {
+  //   if (product.sizeTypes) {
+  //     product.sizeTypes.forEach((sizeType) => {
+  //       const { __component, sizes } = sizeType;
+  //       acc[__component] = acc[__component] || [];
+  //       acc[__component] = acc[__component].concat(sizes);
+  //     });
+  //   }
+  //   return acc;
+  // }, {});
   
-    
-  // const handleClick = (e) => {
-  //   e.preventDefault();
-  //   cf.forEach((box) => (box.checked = false));
-  //   setBrand([]);
-  //   setPageNumber(1);
-  //   setCategory(e.target.textContent.toLowerCase());
-  // };
+  //  console.log(sizesObject);
+
+
   return (
     <div className="col-lg-3">
       {/* Toggle button */}
@@ -229,7 +224,7 @@ export default function AllProductsSidebar() {
                                 new Set(
                                   products[0].filter(
                                     (p) => p.material === material
-                                    //&& p.categorie === category
+
                                   )
                                 )
                               ).length
@@ -316,117 +311,73 @@ export default function AllProductsSidebar() {
                         );
                       }
                     )}
-                  {/* {category === "all" &&
-                    brands.map((brand, index) => {
-                      return (
-                        <div
-                          className="form-check d-flex flex-col align-items-center justify-content-between"
-                          key={index}
-                        >
-                          <div>
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id={brand.brand}
-                              defaultChecked=""
-                              onChange={handleCheck}
-                              value={brand.brand}
-                            />
-                            <label
-                              className="form-check-label"
-                              htmlFor={brand.brand}
-                            >
-                              {brand.brand}
-                            </label>
-                          </div>
-                          <span className="badge badge-secondary float-end">
-                            {brand?._count}
-                          </span>
-                        </div>
-                      );
-                    })} */}
+                  
                 </div>
               </div>
             </div>
           </div>
 
-          {/* size Filter*/}
-          <div className="accordion-item">
-            <h2 className="accordion-header" id="headingTwo">
-              <button
-                className="accordion-button text-dark bg-light"
-                type="button"
-                data-mdb-toggle="collapse"
-                data-mdb-target="#panelsStayOpen-collapseTwo"
-                aria-expanded="false"
-                aria-controls="panelsStayOpen-collapseTwo"
-              >
-                Size
-              </button>
-            </h2>
-            <div
-              id="panelsStayOpen-collapseTwo"
-              className="accordion-collapse collapse show"
-              aria-labelledby="headingTwo"
-            >
-              <div className="accordion-body">
-                <div>
-                  {/* Checked checkbox */}
-                  {productsLoading && (
-                    <Skeleton.SkeletonThemeProvider>
-                      <Skeleton
-                        style={
-                          {
-                            // height: "auto",
-                          }
-                        }
-                      />
-                    </Skeleton.SkeletonThemeProvider>
-                  )}
-                  {!productsLoading &&
-                    Array.from(
-                      new Set(
-                        products[0].flatMap((p) => p?.sizeTypes) // Flatten the sizes arrays
-                      )
-                    ).map((size, index) => {
-                      return (
-                        <div
-                          className="form-check d-flex flex-col align-items-center justify-content-between"
-                          key={index}
-                        >
-                          <div>
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id={size}
-                              defaultChecked=""
-                              onChange={handleCheck}
-                              value={size}
-                            />
-                            <label className="form-check-label" htmlFor={size}>
-                              {size}
-                            </label>
-                          </div>
-                          <span className="badge badge-secondary float-end">
-                            {
-                              Array.from(
-                                new Set(
-                                  products[0].filter(
-                                    (p) =>
-                                      p?.sizeTypes?.includes(size)
-                                      // &&  p.categorie === category
-                                  )
-                                )
-                              ).length
-                            }
-                          </span>
-                        </div>
-                      );
-                    })}
-                </div>
+          
+         
+
+          <div>
+  {/* Render loading state while waiting for data */}
+  {productsLoading && sizesObject !== null && (
+    <Skeleton.SkeletonThemeProvider>
+      <Skeleton
+        style={
+          {
+            // height: "auto",
+          }
+        }
+      />
+    </Skeleton.SkeletonThemeProvider>
+  )}
+
+  {/* Iterate over the keys of sizesObject */}
+  {sizesObject &&
+    Object.keys(sizesObject).map((sizeType, index) => (
+      <div className="accordion-item" key={index}>
+        <h2 className="accordion-header" id={`heading${index}`}>
+          <button
+            className="accordion-button text-dark bg-light"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target={`#panelsStayOpen-collapse${index}`}
+            aria-expanded="true"
+            aria-controls={`panelsStayOpen-collapse${index}`}
+          >
+            {sizeType}
+          </button>
+        </h2>
+        <div
+          className={`accordion-collapse collapse`}
+          id={`panelsStayOpen-collapse${index}`}
+          aria-labelledby={`heading${index}`}
+        >
+          <div className="accordion-body">
+            {/* Render checkboxes for the current sizeType */}
+            {sizesObject[sizeType].map((size, sizeIndex) => (
+              <div key={sizeIndex}>
+                {/* Render size details here */}
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  id={`sizeCheckbox${sizeIndex}`}
+                  value={size.name}
+                  onChange={handleCheck}
+                />
+                <label htmlFor={`sizeCheckbox${sizeIndex}`}>  {size.name}</label>
               </div>
-            </div>
+            ))}
           </div>
+        </div>
+      </div>
+    ))}
+</div>
+
+
+
 
           {/* <div className="accordion-item">
             <h2 className="accordion-header" id="headingThree">
