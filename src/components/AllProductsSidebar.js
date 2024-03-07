@@ -312,45 +312,64 @@ export default function AllProductsSidebar() {
 
          
 
-<div className="accordion-item">
-      {/* ... (existing code) */}
-      <div>
-        {/* Checked checkbox */}
-        {!productsLoading &&
-          Array.from(
-            new Set(
-              products[0].flatMap((p) => p.sizeTypes.flatMap((sizeType) => sizeType.sizes.map((size) => size.name)))
-            )
-          ).map((sizeName, index) => (
-            <div
-              className="form-check d-flex flex-col align-items-center justify-content-between"
-              key={index}
-            >
-              <div>
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id='size'
-                  defaultChecked=""
-                  onChange={handleCheck}
-                  value={sizeName}
-                />
-                <label
-                  className="form-check-label"
-                  htmlFor={sizeName}
+      <div className="accordion-item">
+      <h2 className="accordion-header" id="headingTwo">
+        <button
+          className="accordion-button text-dark bg-light"
+          type="button"
+          data-mdb-toggle="collapse"
+          data-mdb-target="#panelsStayOpen-collapseTwo"
+          aria-expanded="false"
+          aria-controls="panelsStayOpen-collapseTwo"
+        >
+          Pipe Sizes
+        </button>
+      </h2>
+      <div
+        id="panelsStayOpen-collapseTwo"
+        className="accordion-collapse collapse show"
+        aria-labelledby="headingTwo"
+      >
+        <div className="accordion-body">
+          <div>
+            {/* Checked checkbox */}
+            {!productsLoading &&
+              Array.from(
+                new Set(
+                  products[0].flatMap((p) => p.sizeTypes.flatMap((sizeType) => sizeType.sizes.map((size) => size.name)))
+                )
+              ).map((sizeName, index) => (
+                <div
+                  className="form-check d-flex flex-col align-items-center justify-content-between"
+                  key={index}
                 >
-                  {sizeName}
-                </label>
-              </div>
-              <span className="badge badge-secondary float-end">
-                {
-                  products[0].filter(
-                    (p) => p.sizeTypes.some((sizeType) => sizeType.sizes.some((size) => size.name === sizeName))
-                  ).length
-                }
-              </span>
-            </div>
-          ))}
+                  <div>
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id='size'
+                      defaultChecked=""
+                      onChange={handleCheck}
+                      value={sizeName}
+                    />
+                    <label
+                      className="form-check-label"
+                      htmlFor={sizeName}
+                    >
+                      {sizeName}
+                    </label>
+                  </div>
+                  <span className="badge badge-secondary float-end">
+                    {
+                      products[0].filter(
+                        (p) => p.sizeTypes.some((sizeType) => sizeType.sizes.some((size) => size.name === sizeName))
+                      ).length
+                    }
+                  </span>
+                </div>
+              ))}
+          </div>
+        </div>
       </div>
     </div>
 
