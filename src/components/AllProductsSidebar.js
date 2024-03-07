@@ -321,61 +321,7 @@ export default function AllProductsSidebar() {
           
          
 
-          {/* <div>
-  {}
-  {productsLoading && sizesObject !== null && (
-    <Skeleton.SkeletonThemeProvider>
-      <Skeleton
-        style={
-          {
-            
-          }
-        }
-      />
-    </Skeleton.SkeletonThemeProvider>
-  )}
-
-  {}
-  {sizesObject &&
-    Object.keys(sizesObject).map((sizeType, index) => (
-      <div className="accordion-item" key={index}>
-        <h2 className="accordion-header" id={`heading${index}`}>
-          <button
-            className="accordion-button text-dark bg-light"
-            type="button"
-            data-mdb-toggle="collapse"
-            data-mdb-target={`#panelsStayOpen-collapse${index}`}
-            aria-expanded="true"
-            aria-controls={`panelsStayOpen-collapse${index}`}
-          >
-            {sizeType}
-          </button>
-        </h2>
-        <div
-          className={`accordion-collapse collapse`}
-          id={`panelsStayOpen-collapse${index}`}
-          aria-labelledby={`heading${index}`}
-        >
-          <div className="accordion-body">
-            {}
-            {sizesObject[sizeType].map((size, sizeIndex) => (
-              <div key={sizeIndex}>
-                {}
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id={`sizeCheckbox${sizeIndex}`}
-                  value={size.name}
-                  onChange={handleCheck}
-                />
-                <label htmlFor={`sizeCheckbox${sizeIndex}`}>  {size.name}</label>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    ))}
-</div> */}
+         
 
 <div className="accordion-item">
       {/* ... (existing code) */}
