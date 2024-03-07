@@ -75,18 +75,7 @@ export default function AllProductsSidebar() {
     }
   };
   
-  // const sizesObject = products[0]?.reduce((acc, product) => {
-  //   if (product.sizeTypes) {
-  //     product.sizeTypes.forEach((sizeType) => {
-  //       const { __component, sizes } = sizeType;
-  //       acc[__component] = acc[__component] || [];
-  //       acc[__component] = acc[__component].concat(sizes);
-  //     });
-  //   }
-  //   return acc;
-  // }, {});
   
-  //  console.log(sizesObject);
 
 
   return (
