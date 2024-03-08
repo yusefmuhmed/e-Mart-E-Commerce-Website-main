@@ -1,0 +1,40 @@
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Darken the background */
+  z-index: 999;
+}
+
+.popup-inner {
+  
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.col-sm-12.text-center.popup.active.form-group{
+  padding-top: 10%;
+}
+
+.form-control {
+  height: auto;
+    width: 100%;
+    margin: 8px;
+}
+
+
+button.col.btn.btn-primary{
+  margin-right: 20px;
+    height: 38px;
+    text-wrap: nowrap;
+}
+
+.card.p-3{
+  place-items: center;
+  margin-top: 100px;
+  margin-right: 40%;
+  margin-left: 40%;
+}

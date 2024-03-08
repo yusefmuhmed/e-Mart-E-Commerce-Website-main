@@ -10,12 +10,14 @@ import { useCart } from "../../../contexts/CartContext";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { Skeleton } from "react-skeleton-generator";
+import Popup from "../../../components/getAquote/popup.tsx"
 
 export default function Product({ params }) {
   const { productsLoading, products } = useProducts();
   const { addToCart } = useCart();
   const [qt, setQt] = useState(1);
   const router = useRouter();
+  const [isPopupOpen, setPopupOpen] = useState(false);
 
   const handleIncrement = (e) => {
     e.preventDefault();
@@ -50,6 +52,25 @@ export default function Product({ params }) {
       position: "top-center",
     });
   };
+
+
+  
+
+  const openPopup = () => {
+    setPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setPopupOpen(false);
+  };
+
+  const handleGetQuote = () => {
+    // Handle the logic for getting a quote
+    // You can access the necessary data from the component's state
+    // Perform any additional actions needed
+    closePopup(); // Close the popup after handling the quote
+  };
+
 
   if (productsLoading) {
     return (
@@ -224,13 +245,13 @@ export default function Product({ params }) {
                       </div>
                     </div>
                     <div className="d-flex gap-2">
-                      <button
-                        className="btn btn-warning shadow-0"
-                        onClick={handleBuy}
-                      >
-                        {" "}
-                        get a quote{" "}
-                      </button>
+                    <button className="btn btn-warning shadow-0" onClick={openPopup}>
+        Get a Quote
+      </button>
+
+      {isPopupOpen && (
+        <Popup handleClose={closePopup} handleQuote={handleGetQuote} />
+      )}
                       <button
                         className="btn btn-primary shadow-0"
                         onClick={handleAddToCart}
