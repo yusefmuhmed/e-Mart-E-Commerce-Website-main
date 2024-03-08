@@ -75,7 +75,6 @@ export default function AllProductsSidebar() {
     }
   };
   
-  
 
 
   return (
@@ -312,66 +311,77 @@ export default function AllProductsSidebar() {
 
          
 
-      <div className="accordion-item">
-      <h2 className="accordion-header" id="headingTwo">
-        <button
-          className="accordion-button text-dark bg-light"
-          type="button"
-          data-mdb-toggle="collapse"
-          data-mdb-target="#panelsStayOpen-collapseTwo"
-          aria-expanded="false"
-          aria-controls="panelsStayOpen-collapseTwo"
-        >
-          Pipe Sizes
-        </button>
-      </h2>
-      <div
-        id="panelsStayOpen-collapseTwo"
-        className="accordion-collapse collapse show"
-        aria-labelledby="headingTwo"
-      >
-        <div className="accordion-body">
-          <div>
-            {/* Checked checkbox */}
-            {!productsLoading &&
-              Array.from(
-                new Set(
-                  products[0].flatMap((p) => p.sizeTypes.flatMap((sizeType) => sizeType.sizes.map((size) => size.name)))
-                )
-              ).map((sizeName, index) => (
+          
+          {!productsLoading &&
+  products[0].map((product, index) => {
+    if (product.sizeTypes[0]?.__component) {
+      const componentKey = product.sizeTypes[0].__component;
+      
+      // Check if a header with the same __component key already exists
+      const existingAccordionIndex = products[0].findIndex((p, i) => i < index && p.sizeTypes[0]?.__component === componentKey);
+
+      if (existingAccordionIndex !== -1) {
+        // Push the sizes array inside the existing accordion
+        products[0][existingAccordionIndex].sizeTypes[0].sizes.push(...product.sizeTypes[0].sizes);
+        return null; // Skip creating a new accordion
+      }
+      
+      return (
+        <div className="accordion-item" key={index}>
+          <h2 className="accordion-header" id={`heading${index}`}>
+            <button
+              className="accordion-button text-dark bg-light"
+              type="button"
+              data-mdb-toggle="collapse"
+              data-mdb-target={`#panelsStayOpen-collapse${index}`}
+              aria-expanded="false"
+              aria-controls={`panelsStayOpen-collapse${index}`}
+            >
+              {componentKey}
+            </button>
+          </h2>
+          <div
+            id={`panelsStayOpen-collapse${index}`}
+            className="accordion-collapse collapse show"
+            aria-labelledby={`heading${index}`}
+          >
+            <div className="accordion-body">
+              {/* Render sizes inside the accordion body */}
+              {product.sizeTypes[0].sizes.map((size, sizeIndex) => (
                 <div
                   className="form-check d-flex flex-col align-items-center justify-content-between"
-                  key={index}
+                  key={sizeIndex}
                 >
                   <div>
                     <input
                       className="form-check-input"
                       type="checkbox"
-                      id='size'
+                      id={`size`}
                       defaultChecked=""
                       onChange={handleCheck}
-                      value={sizeName}
+                      value={size.name}
                     />
                     <label
                       className="form-check-label"
-                      htmlFor={sizeName}
+                      htmlFor={`size`}
                     >
-                      {sizeName}
+                      {size.name}
                     </label>
                   </div>
                   <span className="badge badge-secondary float-end">
-                    {
-                      products[0].filter(
-                        (p) => p.sizeTypes.some((sizeType) => sizeType.sizes.some((size) => size.name === sizeName))
-                      ).length
-                    }
+                    {products[0].filter(
+                      (p) => p.sizeTypes.some((st) => st.sizes.some((s) => s.name === size.name))
+                    ).length}
                   </span>
                 </div>
               ))}
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      );
+    }
+    return null; // Skip creating accordion for items without __component
+  })}
 
 
 
