@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { Skeleton } from "react-skeleton-generator";
 import Popup from "../../../components/getAquote/popup.tsx"
+import { useEffect } from 'react';
 
 export default function Product({ params }) {
   const { productsLoading, products } = useProducts();
@@ -18,6 +19,7 @@ export default function Product({ params }) {
   const [qt, setQt] = useState(1);
   const router = useRouter();
   const [isPopupOpen, setPopupOpen] = useState(false);
+
 
   const handleIncrement = (e) => {
     e.preventDefault();
@@ -64,6 +66,25 @@ export default function Product({ params }) {
     setPopupOpen(false);
   };
 
+
+  const handleSameSizes = (products, componentName) => {
+    const sizes = [];
+  
+    products.forEach((product) => {
+      product.sizeTypes.forEach((sizeType) => {
+        if (sizeType.__component === componentName) {
+          sizeType.sizes.forEach((size) => {
+            sizes.push(size.name);
+          });
+        }
+      });
+    });
+  
+    return sizes;
+  };
+
+
+
   const handleGetQuote = () => {
     // Handle the logic for getting a quote
     // You can access the necessary data from the component's state
@@ -92,9 +113,14 @@ export default function Product({ params }) {
   } else {
     const product = products[0].find((p) => p.id === Number(params.id));
     // console.log(products);
-    const similarProducts = products?.filter(
+    const sameSizes = handleSameSizes(products[0], product.sizeTypes[0].__component);
+    const similarProducts = products[0]?.filter(
       (p) => p?.category === product?.category
     );
+
+
+
+    
     return (
       <>
        
@@ -221,12 +247,12 @@ export default function Product({ params }) {
                           className="input-group mb-3"
                           style={{ width: 170 }}
                         >
-                          <select class="form-select" aria-label="Default select example">
-                            <option selected>Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </select>
+                         <select className="form-select" id="sizeSelect" aria-label="Default select example">
+                              <option defaultValue>Select Size</option>
+                              {sameSizes.map((size, index) => (
+                                <option key={index} value={size}>{size}</option>
+                              ))}
+                            </select>
                         </div>
                       </div>
                       <div className="col-md-4 col-6 mb-3">
@@ -350,12 +376,12 @@ export default function Product({ params }) {
                           return (
                             <div key={index} className="d-flex mb-3">
                               <Link
-                                href={`/products/${product[index+1].id}`}
+                                href={`/products/${product.id}`}
                                 className="me-3"
                               >
                                 <Image
-                                  src={`${product[index+1].product_img[0].formats.thumbnail.url}`}
-                                  alt={product[index+1].name + " image"}
+                                  src={product?.product_img && product?.product_img.length > 0 ? product.product_img[0]?.formats?.thumbnail?.url : ''}
+                                  alt={product.name + " image"}
                                   height={96}
                                   width={96}
                                   style={{ minWidth: 96, height: 96 }}
@@ -364,18 +390,18 @@ export default function Product({ params }) {
                               </Link>
                               <div className="info">
                                 <Link
-                                  href={`/products/${product[index+1].id}`}
+                                  href={`/products/${product.id}`}
                                   className="nav-link mb-1"
                                 >
-                                  {product[index+1].name} <br />
-                                  {product[index+1].brand?.name}
+                                  {product.name} <br />
+                                  {product.brand?.name}
                                 </Link>
                                 <strong className="text-dark">
                                   $
                                   {(
-                                    product[index+1].price -
-                                    product[index+1].price *
-                                    (product[index+1].discount/ 100)
+                                    product.price -
+                                    product.price *
+                                    (product.discount/ 100)
                                   ).toFixed(2)}
                                 </strong>
                               </div>
