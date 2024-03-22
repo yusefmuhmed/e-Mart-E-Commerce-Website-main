@@ -2,11 +2,12 @@
 
 import {
   createContext,
-  useEffect,
-  useState,
   useContext,
-  useRef
+  useEffect,
+  useRef,
+  useState
 } from "react";
+
 import {
   Toaster
 } from "react-hot-toast";
@@ -103,23 +104,6 @@ export default function ProductsProvider({
         }
       });
       const brands = await res3.json();
-
-      // const sizesObject = products[0] ?.reduce((acc, product) => {
-      //   if (product.sizeTypes) {
-      //     product.sizeTypes.forEach((sizeType) => {
-      //       const {
-      //         __component,
-      //         sizes
-      //       } = sizeType;
-      //       acc[__component] = acc[__component] || [];
-      //       acc[__component] = acc[__component].concat(sizes);
-      //     });
-      //   }
-      //   return acc;
-      // }, {});
-
-
-      // setSizeType([sizesObject])
 
       setProducts([products.data]);
       setProductsCount(products.meta.pagination.total);

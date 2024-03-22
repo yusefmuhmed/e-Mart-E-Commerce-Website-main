@@ -1,17 +1,15 @@
 "use client";
 
 import Image from "next/image";
-// import prisma from "../../../../lib/db";
-import SecondaryImages from "../../../components/SecondaryImages";
 import Link from "next/link";
-import { useProducts } from "../../../contexts/ProductsContext";
-import { useState } from "react";
-import { useCart } from "../../../contexts/CartContext";
-import { useRouter } from "next/navigation";
-import { toast } from "react-hot-toast";
+import Popup from "../../../components/getAquote/popup.tsx";
+import SecondaryImages from "../../../components/SecondaryImages";
 import { Skeleton } from "react-skeleton-generator";
-import Popup from "../../../components/getAquote/popup.tsx"
-import { useEffect } from 'react';
+import { toast } from "react-hot-toast";
+import { useCart } from "../../../contexts/CartContext";
+import { useProducts } from "../../../contexts/ProductsContext";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Product({ params }) {
   const { productsLoading, products } = useProducts();
@@ -19,7 +17,6 @@ export default function Product({ params }) {
   const [qt, setQt] = useState(1);
   const router = useRouter();
   const [isPopupOpen, setPopupOpen] = useState(false);
-
 
   const handleIncrement = (e) => {
     e.preventDefault();
@@ -55,8 +52,30 @@ export default function Product({ params }) {
     });
   };
 
+  const handleSaveFormData = async (formData, event) => {
+    console.log("Received form data in Product component:", formData);
+    event.preventDefault();
 
-  
+    (async () => {
+      const res = await fetch("http://localhost:1337/api/email-senders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer b05341289ac399b5d48a42bda5fc609bf54b27e313f5cc39ec77206b1f0ad09ddab71caa9bfabb0eab1fc307589daaf3ea2862cc1432310761a93c52247d07c0d61aced186d39214141df627b04e70c72131ffe2e2d61607122413310a0ff092cceac819c456c343a0ee1af9c7d393e0359aae39ed97fcb9900afebf64600a1b",
+        },
+        body: JSON.stringify({
+          data: { ...formData },
+        }),
+      });
+
+      if (res.ok) {
+        const result = await res.json();
+        console.log(result);
+        closePopup();
+      }
+    })();
+  };
 
   const openPopup = () => {
     setPopupOpen(true);
@@ -66,10 +85,9 @@ export default function Product({ params }) {
     setPopupOpen(false);
   };
 
-
   const handleSameSizes = (products, componentName) => {
     const sizes = [];
-  
+
     products.forEach((product) => {
       product.sizeTypes.forEach((sizeType) => {
         if (sizeType.__component === componentName) {
@@ -79,19 +97,9 @@ export default function Product({ params }) {
         }
       });
     });
-  
+
     return sizes;
   };
-
-
-
-  const handleGetQuote = () => {
-    // Handle the logic for getting a quote
-    // You can access the necessary data from the component's state
-    // Perform any additional actions needed
-    closePopup(); // Close the popup after handling the quote
-  };
-
 
   if (productsLoading) {
     return (
@@ -113,19 +121,16 @@ export default function Product({ params }) {
   } else {
     const product = products[0].find((p) => p.id === Number(params.id));
     // console.log(products);
-    const sameSizes = handleSameSizes(products[0], product.sizeTypes[0].__component);
+    const sameSizes = handleSameSizes(
+      products[0],
+      product?.sizeTypes[0]?.__component
+    );
     const similarProducts = products[0]?.filter(
       (p) => p?.category === product?.category
     );
 
-
-
-    
     return (
       <>
-       
-        
-        
         <>
           <section className="py-5">
             <div className="container" style={{ marginTop: "6rem" }}>
@@ -247,12 +252,18 @@ export default function Product({ params }) {
                           className="input-group mb-3"
                           style={{ width: 170 }}
                         >
-                         <select className="form-select" id="sizeSelect" aria-label="Default select example">
-                              <option defaultValue>Select Size</option>
-                              {sameSizes.map((size, index) => (
-                                <option key={index} value={size}>{size}</option>
-                              ))}
-                            </select>
+                          <select
+                            className="form-select"
+                            id="sizeSelect"
+                            aria-label="Default select example"
+                          >
+                            <option defaultValue>Select Size</option>
+                            {sameSizes.map((size, index) => (
+                              <option key={index} value={size}>
+                                {size}
+                              </option>
+                            ))}
+                          </select>
                         </div>
                       </div>
                       <div className="col-md-4 col-6 mb-3">
@@ -261,7 +272,10 @@ export default function Product({ params }) {
                           className="input-group mb-3"
                           style={{ width: 170 }}
                         >
-                          <select class="form-select" aria-label="Default select example">
+                          <select
+                            class="form-select"
+                            aria-label="Default select example"
+                          >
                             <option selected>Open this select menu</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -271,13 +285,19 @@ export default function Product({ params }) {
                       </div>
                     </div>
                     <div className="d-flex gap-2">
-                    <button className="btn btn-warning shadow-0" onClick={openPopup}>
-        Get a Quote
-      </button>
+                      <button
+                        className="btn btn-warning shadow-0"
+                        onClick={openPopup}
+                      >
+                        Get a Quote
+                      </button>
 
-      {isPopupOpen && (
-        <Popup handleClose={closePopup} handleQuote={handleGetQuote} />
-      )}
+                      {isPopupOpen && (
+                        <Popup
+                          handleClose={closePopup}
+                          onSaveFormData={handleSaveFormData}
+                        />
+                      )}
                       <button
                         className="btn btn-primary shadow-0"
                         onClick={handleAddToCart}
@@ -336,8 +356,6 @@ export default function Product({ params }) {
                           description
                         </a>
                       </li>
-
-
                     </ul>
                     {/* Pills navs */}
                     {/* Pills content */}
@@ -348,9 +366,7 @@ export default function Product({ params }) {
                         role="tabpanel"
                         aria-labelledby="ex1-tab-1"
                       >
-                        <p>
-                         {product.about}          </p>
-                      
+                        <p>{product.about} </p>
                       </div>
                       <div
                         className="tab-pane fade mb-2"
@@ -358,10 +374,8 @@ export default function Product({ params }) {
                         role="tabpanel"
                         aria-labelledby="ex1-tab-2"
                       >
-{                      product.details
-}                      </div>
-                      
-                      
+                        {product.details}{" "}
+                      </div>
                     </div>
                     {/* Pills content */}
                   </div>
@@ -370,8 +384,7 @@ export default function Product({ params }) {
                   <div className="px-0 border rounded-2 shadow-0">
                     <div className="card">
                       <div className="card-body">
-                        <h5 className="card-title">RELATED PRODUCTS
-                        </h5>
+                        <h5 className="card-title">RELATED PRODUCTS</h5>
                         {similarProducts.map((product, index) => {
                           return (
                             <div key={index} className="d-flex mb-3">
@@ -380,7 +393,13 @@ export default function Product({ params }) {
                                 className="me-3"
                               >
                                 <Image
-                                  src={product?.product_img && product?.product_img.length > 0 ? product.product_img[0]?.formats?.thumbnail?.url : ''}
+                                  src={
+                                    product?.product_img &&
+                                    product?.product_img.length > 0
+                                      ? product.product_img[0]?.formats
+                                          ?.thumbnail?.url
+                                      : ""
+                                  }
                                   alt={product.name + " image"}
                                   height={96}
                                   width={96}
@@ -400,8 +419,7 @@ export default function Product({ params }) {
                                   $
                                   {(
                                     product.price -
-                                    product.price *
-                                    (product.discount/ 100)
+                                    product.price * (product.discount / 100)
                                   ).toFixed(2)}
                                 </strong>
                               </div>

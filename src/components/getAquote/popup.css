@@ -19,10 +19,8 @@
   padding-top: 10%;
 }
 
-.form-control {
-  height: auto;
-    width: 100%;
-    margin: 8px;
+.form-control, .form-select {
+  
 }
 
 
@@ -33,8 +31,16 @@ button.col.btn.btn-primary{
 }
 
 .card.p-3{
-  place-items: center;
+  
   margin-top: 100px;
   margin-right: 40%;
   margin-left: 40%;
+}
+
+
+
+.popupField{
+
+
+  
 }
