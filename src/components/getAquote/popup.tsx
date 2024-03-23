@@ -78,13 +78,13 @@ const Popup = ({ handleClose, onSaveFormData }) => {
                         <input className="form-control my-3" type="text" placeholder="Company" name="company" onChange={handleInputChange} />
                         <input className="form-control my-3" type="text" placeholder="Country" name="country" onChange={handleInputChange} />
                         <input className="form-control my-3" type="text" placeholder="Address" name="address" onChange={handleInputChange} />
-                        <select className="form-select my-3">
+                        <select className="form-select my-3" name="category" onChange={handleInputChange}>
                             <option value="">Select Category</option>
                             <option value="Request">Request</option>
                             <option value="Ask">Ask</option>
-                            <option value="Complain">Compliment</option>
+                            <option value="Complain">Complain</option>
                         </select>
-                        <select className="form-select">
+                        <select className="form-select my-3" name="industry" onChange={handleInputChange}>
                             <option value="">Select Industry</option>
                             <option value="Construction">Construction</option>
                             <option value="Agriculture">Agriculture</option>

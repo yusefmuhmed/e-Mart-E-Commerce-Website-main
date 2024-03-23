@@ -1,10 +1,10 @@
 "use client";
 
-import Swal from 'sweetalert2';
-import App from '../cms/types/app';
 import React, { useState } from 'react'
-import Link from '../../components/core/link';
+
+import App from '../cms/types/app';
 import Contact from '../cms/types/contact';
+import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
 
 const MySwal = withReactContent(Swal);
@@ -12,7 +12,7 @@ const MySwal = withReactContent(Swal);
 const alertContent = () => {
     MySwal.fire({
         title: 'Thank you!',
-        text: 'We recived your request and our team will back to you soon',
+        text: 'We received your request and our team will back to you soon',
         icon: 'success',
         timer: 2000,
         timerProgressBar: true,

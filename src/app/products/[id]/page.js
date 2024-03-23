@@ -5,11 +5,13 @@ import Link from "next/link";
 import Popup from "../../../components/getAquote/popup.tsx";
 import SecondaryImages from "../../../components/SecondaryImages";
 import { Skeleton } from "react-skeleton-generator";
+import Swal from 'sweetalert2';
 import { toast } from "react-hot-toast";
 import { useCart } from "../../../contexts/CartContext";
 import { useProducts } from "../../../contexts/ProductsContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import withReactContent from 'sweetalert2-react-content'
 
 export default function Product({ params }) {
   const { productsLoading, products } = useProducts();
@@ -17,6 +19,7 @@ export default function Product({ params }) {
   const [qt, setQt] = useState(1);
   const router = useRouter();
   const [isPopupOpen, setPopupOpen] = useState(false);
+  const MySwal = withReactContent(Swal);
 
   const handleIncrement = (e) => {
     e.preventDefault();
@@ -52,6 +55,17 @@ export default function Product({ params }) {
     });
   };
 
+  const alertContent = () => {
+    MySwal.fire({
+        title: 'Thank you!',
+        text: 'We received your request and our team will back to you soon',
+        icon: 'success',
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+    })
+}
+
   const handleSaveFormData = async (formData, event) => {
     console.log("Received form data in Product component:", formData);
     event.preventDefault();
@@ -72,6 +86,8 @@ export default function Product({ params }) {
       if (res.ok) {
         const result = await res.json();
         console.log(result);
+        
+        alertContent();
         closePopup();
       }
     })();
