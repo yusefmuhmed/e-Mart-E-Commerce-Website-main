@@ -10,7 +10,7 @@ export default interface Contact {
     formParagraph: string;
     formFieldName: string;
     formFieldEmail: string;
-    formFieldPhone: string;
+    formFieldMobile: string;
     formFieldSubject: string;
     formFieldMessage: string;
     createdAt: string;

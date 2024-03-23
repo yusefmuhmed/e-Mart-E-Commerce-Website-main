@@ -7,7 +7,7 @@ const Popup = ({ handleClose, onSaveFormData }) => {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
-        mobile: "",
+        phone_number: "",
         subject: "",
         message: "",
         company: "",
@@ -26,10 +26,10 @@ const Popup = ({ handleClose, onSaveFormData }) => {
     };
 
     const handleGetQuote = () => {
-        const { name, email, mobile } = formData;
+        const { name, email, phone_number } = formData;
 
         // Check for required fields
-        if (!name || !email || !mobile) {
+        if (!name || !email || !phone_number) {
             return;
         }
 
@@ -39,9 +39,9 @@ const Popup = ({ handleClose, onSaveFormData }) => {
             return;
         }
 
-        // Validate mobile number
-        if (!isMobileValid(mobile)) {
-            alert("Please enter a valid 10-digit mobile number.");
+        // Validate phone_number number
+        if (!isphone_numberValid(phone_number)) {
+            alert("Please enter a valid 10-digit phone_number number.");
             return;
         }
 
@@ -56,9 +56,9 @@ const Popup = ({ handleClose, onSaveFormData }) => {
         return regex.test(email);
     };
 
-    const isMobileValid = (mobile) => {
-        // Regular expression for mobile number validation (simple example)
-        return mobile.length === 10 && !isNaN(mobile);
+    const isphone_numberValid = (phone_number) => {
+        // Regular expression for phone_number number validation (simple example)
+        return phone_number.length === 10 && !isNaN(phone_number);
     };
 
 
@@ -72,7 +72,7 @@ const Popup = ({ handleClose, onSaveFormData }) => {
 
                         <input className="form-control my-3" type="text" placeholder="Name" name="name" onChange={handleInputChange} required />
                         <input className="form-control my-3" type="email" placeholder="Email" name="email" onChange={handleInputChange} required />
-                        <input className="form-control my-3" type="text" placeholder="Mobile" name="mobile" onChange={handleInputChange} required />
+                        <input className="form-control my-3" type="text" placeholder="phone_number" name="phone_number" onChange={handleInputChange} required />
                         <input className="form-control my-3" type="text" placeholder="Subject" name="subject" onChange={handleInputChange} />
                         <textarea className="form-control my-3" placeholder="Message" name="message" onChange={handleInputChange}  ></textarea>
                         <input className="form-control my-3" type="text" placeholder="Company" name="company" onChange={handleInputChange} />

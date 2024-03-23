@@ -29,7 +29,7 @@ interface Props {
 const INITIAL_STATE = {
     name: "",
     email: "",
-    phone: "",
+    mobile: "",
     subject: "",
     message: "",
     mailSubject: "Contact Request"
@@ -40,7 +40,7 @@ export default function ContactForm({ app, contact }: Props) {
     const [contactForm, setContactForm] = useState(INITIAL_STATE);
     const [loading, setLoading] = useState(false);
 
-    const disabled = loading || (!contactForm.name || !contactForm.email || !contactForm.phone || contactForm.phone.length < 9);
+    const disabled = loading || (!contactForm.name || !contactForm.email || !contactForm.mobile || contactForm.mobile.length < 9);
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
@@ -52,14 +52,23 @@ export default function ContactForm({ app, contact }: Props) {
         setLoading(true);
 
         try {
-            const requestOptions = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(contactForm)
-            };
-            const res = await fetch("/contact", requestOptions);
-            setContactForm(INITIAL_STATE);
-            alertContent();
+            const res = await fetch("http://localhost:1337/api/contact-uses", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization:
+                        "Bearer b05341289ac399b5d48a42bda5fc609bf54b27e313f5cc39ec77206b1f0ad09ddab71caa9bfabb0eab1fc307589daaf3ea2862cc1432310761a93c52247d07c0d61aced186d39214141df627b04e70c72131ffe2e2d61607122413310a0ff092cceac819c456c343a0ee1af9c7d393e0359aae39ed97fcb9900afebf64600a1b",
+                },
+                body: JSON.stringify({
+                    data: { ...contactForm },
+                }),
+            });
+            if (res.ok) {
+                const result = await res.json();
+                console.log(result);
+                setContactForm(INITIAL_STATE);
+                alertContent();
+            }
         } catch (err) {
             console.log(err);
         } finally {
@@ -115,10 +124,10 @@ export default function ContactForm({ app, contact }: Props) {
                                         <div className="form-group">
                                             <input
                                                 type="number"
-                                                name="phone"
-                                                placeholder={contact?.formFieldPhone || 'Phone'}
+                                                name="mobile"
+                                                placeholder={contact?.formFieldMobile || 'mobile'}
                                                 className="form-control"
-                                                value={contactForm.phone}
+                                                value={contactForm.mobile}
                                                 onChange={handleChange}
                                                 required
                                             />
@@ -149,18 +158,7 @@ export default function ContactForm({ app, contact }: Props) {
                                             />
                                         </div>
                                     </div>
-                                    {/* <div className="col-lg-12 col-md-12 col-sm-12">
-                                        <div className="form-check">
-                                            <input
-                                                type="checkbox"
-                                                className="form-check-input"
-                                                id="checkme"
-                                            />
-                                            <label className="form-check-label" htmlFor="checkme">
-                                                Accept <Link href="/terms-conditions"><a>Terms of Services</a></Link> and <Link href="/privacy-policy"><a>Privacy Policy</a></Link>
-                                            </label>
-                                        </div>
-                                    </div> */}
+
                                     <div className="col-lg-12 col-md-12 col-sm-12">
                                         {
                                             !contact?.formSubmitButton?.enabled ? '' : (
