@@ -66,32 +66,44 @@ export default function Product({ params }) {
     })
 }
 
-  const handleSaveFormData = async (formData, event) => {
-    console.log("Received form data in Product component:", formData);
-    event.preventDefault();
+const handleSaveFormData = async (formData, event) => {
+  event.preventDefault();
 
-    (async () => {
-      const res = await fetch("http://localhost:1337/api/email-senders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization:
-            "Bearer b05341289ac399b5d48a42bda5fc609bf54b27e313f5cc39ec77206b1f0ad09ddab71caa9bfabb0eab1fc307589daaf3ea2862cc1432310761a93c52247d07c0d61aced186d39214141df627b04e70c72131ffe2e2d61607122413310a0ff092cceac819c456c343a0ee1af9c7d393e0359aae39ed97fcb9900afebf64600a1b",
-        },
-        body: JSON.stringify({
-          data: { ...formData },
-        }),
-      });
+  const product = products[0].find((p) => p.id === Number(params.id));
+  const selectedSize = document.getElementById("sizeSelect").value;
 
-      if (res.ok) {
-        const result = await res.json();
-        console.log(result);
-        
-        alertContent();
-        closePopup();
-      }
-    })();
+  const formDataToSend = {
+    productName: product.name,
+    quantity: qt,
+    size: selectedSize,
+    ...formData // any additional form data
   };
+
+  try {
+    const res = await fetch("http://localhost:1337/api/email-senders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer 79e5e267084cf7208054b64128f77ba4c93dff326950f8f4de48f679bbae67ac281b9318cd6d332c40b962e3c2a12e114bfab859299dd41cbff945127c00e0350819e0a87d4d0cca8542ca7299be4975a9c987ab3bb86d84df8d3ae5e7b31b0ca676e0e22ba394c8bc27d1d73843def52a808491f3bc1659eb02a7c508072f7b",
+      },
+      body: JSON.stringify({
+        data: formDataToSend,
+      }),
+    });
+
+    if (res.ok) {
+      const result = await res.json();
+      console.log(result);
+      
+      alertContent();
+      closePopup();
+    } else {
+      console.error('Failed to send form data.');
+    }
+  } catch (error) {
+    console.error('Error sending form data:', error);
+  }
+};
 
   const openPopup = () => {
     setPopupOpen(true);
