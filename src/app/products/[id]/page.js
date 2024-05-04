@@ -71,11 +71,14 @@ const handleSaveFormData = async (formData, event) => {
 
   const product = products[0].find((p) => p.id === Number(params.id));
   const selectedSize = document.getElementById("sizeSelect").value;
+  const selectedLength = document.getElementById("lengthSelect").value;
+
 
   const formDataToSend = {
     productName: product.name,
     quantity: qt,
     size: selectedSize,
+    length : selectedLength,
     ...formData // any additional form data
   };
 
@@ -302,6 +305,7 @@ const handleSaveFormData = async (formData, event) => {
                         >
                           <select
                             class="form-select"
+                            id="lengthSelect"
                             aria-label="Default select example"
                           >
                             <option selected>Open this select menu</option>
