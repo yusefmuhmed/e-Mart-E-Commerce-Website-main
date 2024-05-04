@@ -83,7 +83,7 @@ const handleSaveFormData = async (formData, event) => {
   };
 
   try {
-    const res = await fetch("http://localhost:1337/api/email-senders", {
+    const res = await fetch("http://141.136.44.242:1337/api/email-senders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
