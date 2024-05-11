@@ -13,6 +13,7 @@ export default interface Contact {
     formFieldPhone: string;
     formFieldSubject: string;
     formFieldMessage: string;
+    formFieldMobile:string;
     createdAt: string;
     updatedAt: string;
     locale: string;

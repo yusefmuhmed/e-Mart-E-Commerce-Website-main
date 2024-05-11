@@ -1,5 +1,7 @@
 "use client";
-
+const CMS_BASE_URL = process.env.CMS_BASE_URL + "/api";
+const CMS_READONLY_TOKEN = process.env.CMS_READONLY_TOKEN;
+const authHeader = { Authorization: `Bearer ${CMS_READONLY_TOKEN}` };
 import {
   createContext,
   useContext,
@@ -82,26 +84,23 @@ export default function ProductsProvider({
 
   useEffect(() => {
     (async () => {
-      const res = await fetch("http://141.136.44.242:1337/api/products?populate=deep", {
+      const res = await fetch(CMS_BASE_URL+"/products?populate=deep", {
         headers: {
-          Authorization: "Bearer 79e5e267084cf7208054b64128f77ba4c93dff326950f8f4de48f679bbae67ac281b9318cd6d332c40b962e3c2a12e114bfab859299dd41cbff945127c00e0350819e0a87d4d0cca8542ca7299be4975a9c987ab3bb86d84df8d3ae5e7b31b0ca676e0e22ba394c8bc27d1d73843def52a808491f3bc1659eb02a7c508072f7b"
-        }
+          ...authHeader        }
       });
 
       const products = await res.json();
-      const res2 = await fetch("http://141.136.44.242:1337/api/categories", {
+      const res2 = await fetch(CMS_BASE_URL+"/categories", {
         headers: {
-          Authorization: "Bearer 79e5e267084cf7208054b64128f77ba4c93dff326950f8f4de48f679bbae67ac281b9318cd6d332c40b962e3c2a12e114bfab859299dd41cbff945127c00e0350819e0a87d4d0cca8542ca7299be4975a9c987ab3bb86d84df8d3ae5e7b31b0ca676e0e22ba394c8bc27d1d73843def52a808491f3bc1659eb02a7c508072f7b"
-        }
+          ...authHeader        }
       });
       const categories = await res2.json();
 
 
 
-      const res3 = await fetch("http://141.136.44.242:1337/api/brands", {
+      const res3 = await fetch(CMS_BASE_URL+"/brands", {
         headers: {
-          Authorization: "Bearer 79e5e267084cf7208054b64128f77ba4c93dff326950f8f4de48f679bbae67ac281b9318cd6d332c40b962e3c2a12e114bfab859299dd41cbff945127c00e0350819e0a87d4d0cca8542ca7299be4975a9c987ab3bb86d84df8d3ae5e7b31b0ca676e0e22ba394c8bc27d1d73843def52a808491f3bc1659eb02a7c508072f7b"
-        }
+          ...authHeader        }
       });
       const brands = await res3.json();
 

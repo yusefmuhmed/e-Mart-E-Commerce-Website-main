@@ -1,5 +1,7 @@
 "use client";
-
+const CMS_BASE_URL = process.env.CMS_BASE_URL + "/api";
+const CMS_READONLY_TOKEN = process.env.CMS_READONLY_TOKEN;
+const authHeader = { Authorization: `Bearer ${CMS_READONLY_TOKEN}` };
 import Image from "next/image";
 import Link from "next/link";
 import Popup from "../../../components/getAquote/popup.tsx";
@@ -83,11 +85,11 @@ const handleSaveFormData = async (formData, event) => {
   };
 
   try {
-    const res = await fetch("http://141.136.44.242:1337/api/email-senders", {
+    const res = await fetch(CMS_BASE_URL+"/email-senders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer 79e5e267084cf7208054b64128f77ba4c93dff326950f8f4de48f679bbae67ac281b9318cd6d332c40b962e3c2a12e114bfab859299dd41cbff945127c00e0350819e0a87d4d0cca8542ca7299be4975a9c987ab3bb86d84df8d3ae5e7b31b0ca676e0e22ba394c8bc27d1d73843def52a808491f3bc1659eb02a7c508072f7b",
+        ...authHeader
       },
       body: JSON.stringify({
         data: formDataToSend,

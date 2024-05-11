@@ -1,5 +1,7 @@
 "use client";
-
+const CMS_BASE_URL = process.env.CMS_BASE_URL + "/api";
+const CMS_READONLY_TOKEN = process.env.CMS_READONLY_TOKEN;
+const authHeader = { Authorization: `Bearer ${CMS_READONLY_TOKEN}` };
 import Swal from 'sweetalert2';
 import Image from 'next/image'
 import Home from '../cms/types/home'
@@ -54,10 +56,10 @@ export default function FreeQuote({ home }: Props) {
         try {
             const requestOptions = {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json',...authHeader },
                 body: JSON.stringify(freeQuoteForm)
             };
-            const res = await fetch("/contact", requestOptions);
+            const res = await fetch(CMS_BASE_URL +"/contact", requestOptions);
             setFreeQuoteForm(INITIAL_STATE);
             alertContent();
         } catch (err) {
